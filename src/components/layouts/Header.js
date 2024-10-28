@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./Header.css";
 
 function Header() {
@@ -8,15 +10,15 @@ function Header() {
   // View ---------------------------------
   return (
     <header>
-      <a>
+      <Link to="/">
         <img
           src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"
           alt="Icon showing group"
         />
-      </a>
-      <a>
+      </Link>
+      <Link to="/">
         <h1>React First Build</h1>
-      </a>
+      </Link>
       <div className="login">
         <p>Welcome Harsha!</p>
       </div>
