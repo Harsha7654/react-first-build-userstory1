@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { API } from "../api/API";
 
 function Subjects() {
   // Initialisation ---------------------------
@@ -11,12 +12,16 @@ function Subjects() {
 
   // Context ------------------------------
   // Methods ------------------------------
-  const URL = "http://localhost:5000/api";
-  const endpointAddress = URL + endpoint;
+  const apiCall = async (endpoint) => {
+    const response = await API.get(endpoint);
+    response.isSuccess
+      ? setSubjects(response.result)
+      : setLoadingMessage(response.message);
+  };
 
-  fetch("http://localhost:5000/api/subjects/users/5", { mode: "no-cors" })
-    .then((response) => console.log(response))
-    .catch((error) => console.error(error));
+  useEffect(() => {
+    apiCall(endpoint);
+  }, [endpoint]);
 
   // View ---------------------------------
   return (
@@ -28,7 +33,11 @@ function Subjects() {
       ) : subjects.length === 0 ? (
         <p>No subjects found</p>
       ) : (
-        subjects.map((subject) => <p>{subject.SubjectName}</p>)
+        subjects.map((subject) => (
+          <p key={subject.SubjectName}>
+            {subject.SubjectName} - {subject.SubjectLecturerName}
+          </p>
+        ))
       )}
     </section>
   );
