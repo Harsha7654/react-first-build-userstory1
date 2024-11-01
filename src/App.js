@@ -5,7 +5,7 @@ import Home from "./components/pages/Home";
 import PageNotFound from "./components/pages/404";
 import SignIn from "./components/pages/SignIn";
 import ContactUs from "./components/pages/ContactUs";
-import Modules from "./components/pages/Modules";
+import Subjects from "./components/pages/Subject";
 import "./App.css";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/modules" element={<Modules />} />
+          <Route path="/subjects" element={<Subjects />} />
         </Routes>
       </Layout>
     </BrowserRouter>
