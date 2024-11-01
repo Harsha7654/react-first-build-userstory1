@@ -16,6 +16,11 @@ function Navbar() {
         </NavLink>
       </div>
       <div className="navItem">
+        <NavLink to="/modules" className={getLinkStyle}>
+          My Modules
+        </NavLink>
+      </div>
+      <div className="navItem">
         <NavLink to="/signin" className={getLinkStyle}>
           Sign In
         </NavLink>
