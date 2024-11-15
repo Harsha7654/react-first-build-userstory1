@@ -12,15 +12,15 @@ function Header() {
     <header>
       <Link to="/">
         <img
-          src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTpwWIdo5kfJFOiypBy4AYXlfc4Gb4WgWUw&s"
           alt="Icon showing group"
         />
       </Link>
       <Link to="/">
-        <h1>React First Build</h1>
+        <h1>Kuizz App</h1>
       </Link>
       <div className="login">
-        <p>Welcome Harsha!</p>
+        <p>Welcome John Doe!</p>
       </div>
     </header>
   );
