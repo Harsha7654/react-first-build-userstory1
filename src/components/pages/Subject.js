@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { API } from "../api/API";
+import "./Subject.css";
 
 function Subjects() {
   // Initialisation ---------------------------
-  const loggedinUserID = 5;
-  const endpoint = `/subjects/users/${loggedinUserID}`;
+  const loggedinUserID = 1;
+  const endpoint = `/subjects/lecturer/${loggedinUserID}`;
 
   // State --------------------------------
   const [subjects, setSubjects] = useState(null);
@@ -33,11 +34,16 @@ function Subjects() {
       ) : subjects.length === 0 ? (
         <p>No subjects found</p>
       ) : (
-        subjects.map((subject) => (
-          <p key={subject.SubjectName}>
-            {subject.SubjectName} - {subject.SubjectLecturerName}
-          </p>
-        ))
+        <div className="subjects-container">
+          {subjects.map((subject) => (
+            <div className="subject-card" key={subject.SubjectName}>
+              <div className="subject-title">{subject.SubjectName}</div>
+              <div className="subject-lecturer">
+                {subject.SubjectLecturerName}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </section>
   );
