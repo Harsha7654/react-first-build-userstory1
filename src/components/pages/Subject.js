@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Tray, Add } from "../UI/Actions.js";
+import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
 
@@ -10,6 +12,9 @@ function Subjects() {
   // State --------------------------------
   const [subjects, setSubjects] = useState(null);
   const [loadingMessage, setLoadingMessage] = useState("Loading records ...");
+
+  const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
+  const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
 
   // Context ------------------------------
   // Methods ------------------------------
@@ -23,6 +28,9 @@ function Subjects() {
   useEffect(() => {
     apiCall(endpoint);
   }, [endpoint]);
+
+  const handleAdd = () => setShowNewSubjectForm(true);
+  const handleJoin = () => setShowJoinSubjectForm(true);
 
   // View ---------------------------------
   return (
@@ -38,6 +46,7 @@ function Subjects() {
           {subjects.map((subject) => (
             <div className="subject-card" key={subject.SubjectName}>
               <div className="subject-title">{subject.SubjectName}</div>
+              <div className="subject-image">{subject.SubjectImageURL}</div>
               <div className="subject-lecturer">
                 {subject.SubjectLecturerName}
               </div>
@@ -45,6 +54,15 @@ function Subjects() {
           ))}
         </div>
       )}
+
+      <p>&nbsp;</p>
+      <Tray>
+        <Add showText onClick={handleAdd} buttonText="Add new Subject" />
+        <Add showText onClick={handleJoin} buttonText="Join a Subject" />
+      </Tray>
+
+      {showNewSubjectForm && <SubjectForm />}
+      {showJoinSubjectForm && <p>{"<JoinSubjectForm />"}</p>}
     </section>
   );
 }
