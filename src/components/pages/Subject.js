@@ -31,6 +31,8 @@ function Subjects() {
 
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
+  const handleDismissAdd = () => setShowNewSubjectForm(false);
+  const handleDismissJoin = () => setShowJoinSubjectForm(false);
 
   // View ---------------------------------
   return (
@@ -61,7 +63,7 @@ function Subjects() {
         <Add showText onClick={handleJoin} buttonText="Join a Subject" />
       </Tray>
 
-      {showNewSubjectForm && <SubjectForm />}
+      {showNewSubjectForm && <SubjectForm onDismiss={handleDismissAdd} />}
       {showJoinSubjectForm && <p>{"<JoinSubjectForm />"}</p>}
     </section>
   );
