@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Tray, Submit, Cancel } from "../../UI/Actions";
 import FormItem from "../../UI/Form";
+import "./SubjectForm.css";
 
 const emptySubject = {
   SubjectName: "",
