@@ -3,13 +3,14 @@ import { Tray, Submit, Cancel } from "../../UI/Actions";
 import FormItem from "../../UI/Form";
 
 const emptySubject = {
-  SubjectName: "Social Studies",
-  SubjectImageURL: "socials_image.png",
+  SubjectName: "",
+  SubjectImageURL: "",
   SubjectLecturerID: 0,
 };
 
 export default function SubjectForm({
   onDismiss,
+  onSubmit,
   initialsubject = emptySubject,
 }) {
   // Initialisation ------------------------------
@@ -43,8 +44,25 @@ export default function SubjectForm({
     });
   };
 
+  const isValidSubject = (subject) => {
+    let isSubjectValid = true;
+    Object.keys(subject).forEach((key) => {
+      if (isValid[key](subject[key])) {
+        errors[key] = null;
+      } else {
+        errors[key] = errorMessage[key];
+        isSubjectValid = false;
+      }
+    });
+    return isSubjectValid;
+  };
+
   const handleCancel = () => onDismiss();
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    isValidSubject(subject) && onSubmit(subject) && onDismiss();
+    setErrors({ ...errors });
+  };
   // View ----------------------------------------
   return (
     <form className="BorderedForm">

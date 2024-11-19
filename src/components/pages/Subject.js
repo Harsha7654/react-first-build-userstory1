@@ -7,7 +7,8 @@ import "./Subject.css";
 function Subjects() {
   // Initialisation ---------------------------
   const loggedinUserID = 1;
-  const endpoint = `/subjects/lecturer/${loggedinUserID}`;
+  //const endpoint = `/subjects/lecturer/${loggedinUserID}`;
+  const subjectsEndpoint = `/subjects`;
 
   // State --------------------------------
   const [subjects, setSubjects] = useState(null);
@@ -18,21 +19,26 @@ function Subjects() {
 
   // Context ------------------------------
   // Methods ------------------------------
-  const apiCall = async (endpoint) => {
-    const response = await API.get(endpoint);
+  const getSubjects = async () => {
+    const response = await API.get(`/subjects`);
     response.isSuccess
       ? setSubjects(response.result)
       : setLoadingMessage(response.message);
   };
 
   useEffect(() => {
-    apiCall(endpoint);
-  }, [endpoint]);
+    getSubjects();
+  }, []);
 
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);
   const handleDismissJoin = () => setShowJoinSubjectForm(false);
+
+  const handleSubmit = async (subject) => {
+    const response = await API.post(subjectsEndpoint, subject);
+    return response.isSuccess ? getSubjects() || true : false;
+  };
 
   // View ---------------------------------
   return (
@@ -63,7 +69,9 @@ function Subjects() {
         <Add showText onClick={handleJoin} buttonText="Join a Subject" />
       </Tray>
 
-      {showNewSubjectForm && <SubjectForm onDismiss={handleDismissAdd} />}
+      {showNewSubjectForm && (
+        <SubjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmit} />
+      )}
       {showJoinSubjectForm && <p>{"<JoinSubjectForm />"}</p>}
     </section>
   );
