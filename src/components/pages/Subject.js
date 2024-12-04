@@ -6,8 +6,10 @@ import "./Subject.css";
 
 function Subjects() {
   // Initialisation ---------------------------
-  const loggedinUserID = 1;
-  //const endpoint = `/subjects/lecturer/${loggedinUserID}`;
+  const loggedinUserIDforLecturer = 1;
+  const loggedinUserIDforUser = 5;
+  const Lecturerendpoint = `/subjects/lecturer/${loggedinUserIDforLecturer}`;
+  const Userendpoint = `/subjects/users/${loggedinUserIDforUser}`;
   const subjectsEndpoint = `/subjects`;
 
   // State --------------------------------
@@ -20,7 +22,7 @@ function Subjects() {
   // Context ------------------------------
   // Methods ------------------------------
   const getSubjects = async () => {
-    const response = await API.get(`/subjects`);
+    const response = await API.get(Userendpoint);
     response.isSuccess
       ? setSubjects(response.result)
       : setLoadingMessage(response.message);
