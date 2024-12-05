@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Tray, Submit, Cancel } from "../../UI/Actions";
-import FormItem from "../../UI/Form";
+import Form from "../../UI/Form";
 import "./SubjectForm.css";
 
 const emptySubject = {
@@ -66,8 +65,8 @@ export default function SubjectForm({
   };
   // View ----------------------------------------
   return (
-    <form className="BorderedForm">
-      <FormItem
+    <Form onSubmit={handleSubmit} oncancel={handleCancel}>
+      <Form.Item
         label="Subject Name"
         htmlFor="SubjectName"
         advice="Please enter the name of the subject"
@@ -79,10 +78,10 @@ export default function SubjectForm({
           value={subject.SubjectName}
           onChange={handleChange}
         />
-      </FormItem>
+      </Form.Item>
 
-      <FormItem
-        label="Suject Image URL"
+      <Form.Item
+        label="Subject Image URL"
         htmlFor="SubjectImageURL"
         advice="Please enter the picture URL of the subject"
         error={errors.SubjectImageURL}
@@ -93,10 +92,10 @@ export default function SubjectForm({
           value={subject.SubjectImageURL}
           onChange={handleChange}
         />
-      </FormItem>
+      </Form.Item>
 
-      <FormItem
-        label="Suject Lecturer ID"
+      <Form.Item
+        label="Subject Lecturer ID"
         htmlFor="SubjectLecturerID"
         advice="Choose the ID between 1 and 5 but choose 1"
         error={errors.SubjectLecturerID}
@@ -113,20 +112,7 @@ export default function SubjectForm({
             <option key={id}>{id}</option>
           ))}
         </select>
-      </FormItem>
-
-      <Tray>
-        <Submit
-          showText
-          onClick={handleSubmit}
-          buttonText="Submit new subject"
-        />
-        <Cancel
-          showText
-          onClick={handleCancel}
-          buttonText="Cancel submission"
-        />
-      </Tray>
-    </form>
+      </Form.Item>
+    </Form>
   );
 }
