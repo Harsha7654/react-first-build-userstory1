@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Tray, Add } from "../UI/Actions.js";
 import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
+import useLoad from "../api/useLoad.js";
 
 function Subjects() {
   // Initialisation ---------------------------
@@ -12,26 +13,16 @@ function Subjects() {
   const Userendpoint = `/subjects/users/${loggedinUserIDforUser}`;
   const subjectsEndpoint = `/subjects`;
 
+  // useLoad -----------------------------------
+
   // State --------------------------------
-  const [subjects, setSubjects] = useState(null);
-  const [loadingMessage, setLoadingMessage] = useState("Loading records ...");
+  const [subjects, , loadingMessage, loadSubjects] = useLoad(Lecturerendpoint);
 
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
 
   // Context ------------------------------
   // Methods ------------------------------
-  const getSubjects = async () => {
-    const response = await API.get(Userendpoint);
-    response.isSuccess
-      ? setSubjects(response.result)
-      : setLoadingMessage(response.message);
-  };
-
-  useEffect(() => {
-    getSubjects();
-  }, []);
-
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);
@@ -39,7 +30,7 @@ function Subjects() {
 
   const handleSubmit = async (subject) => {
     const response = await API.post(subjectsEndpoint, subject);
-    return response.isSuccess ? getSubjects() || true : false;
+    return response.isSuccess ? loadSubjects(subjectsEndpoint) || true : false;
   };
 
   // View ---------------------------------

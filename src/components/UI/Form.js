@@ -1,6 +1,27 @@
 import "./Form.css";
+import { Tray, Submit, Cancel } from "./Actions";
 
-export default function FormItem({ children, label, htmlFor, advice, error }) {
+export default function Form({ children, onSubmit, oncancel }) {
+  // Initialisation -----------------------------
+  // Hooks -------------------------------------
+  // State --------------------------------------
+  // Context ------------------------------------
+  // Handlers -----------------------------------
+  const handleSubmit = () => onSubmit;
+  const handleCancel = () => oncancel;
+  // View ---------------------------------------
+  return (
+    <form className="BorderedForm">
+      <div className="FormTray">{children}</div>
+      <Tray>
+        <Submit showText onClick={handleSubmit} buttonText="Submit" />
+        <Cancel showText onClick={handleCancel} buttonText="Cancel" />
+      </Tray>
+    </form>
+  );
+}
+
+function Item({ children, label, htmlFor, advice, error }) {
   // Properties
   // Hooks
   // Context
@@ -17,3 +38,6 @@ export default function FormItem({ children, label, htmlFor, advice, error }) {
     </div>
   );
 }
+
+// Compose Form Object
+Form.Item = Item;
