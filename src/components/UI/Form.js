@@ -11,7 +11,9 @@ export default function Form({ children, onSubmit, oncancel }) {
     //console.log("Form - handleSubmit");
     onSubmit();
   };
-  const handleCancel = () => oncancel;
+  const handleCancel = () => {
+    oncancel();
+  };
   // View ---------------------------------------
   return (
     <div className="BorderedForm">
