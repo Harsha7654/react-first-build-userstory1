@@ -8,6 +8,7 @@ API.put = (endpoint, data) => callFetch(endpoint, "PUT", data);
 API.delete = (endpoint) => callFetch(endpoint, "DELETE", null);
 
 const callFetch = async (endpoint, method, dataObj) => {
+  console.log("callFetch", method);
   // Build request object
   let requestObj = { method: method }; // GET, POST, PUT or DELETE
   if (dataObj)

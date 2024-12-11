@@ -17,7 +17,7 @@ export default function SubjectForm({
   const isValid = {
     SubjectName: (name) => name.length > 8,
     SubjectImageURL: (img) => img.length > 10,
-    SubjectLecturerID: (id) => id > 0 && id < 4,
+    SubjectLecturerID: (id) => id > 0 && id < 2,
   };
 
   const errorMessage = {
@@ -45,21 +45,24 @@ export default function SubjectForm({
   };
 
   const isValidSubject = (subject) => {
+    //console.log("SubjectForm - isValidSubject");
     let isSubjectValid = true;
-    Object.keys(subject).forEach((key) => {
+    Object.keys(isValid).forEach((key) => {
       if (isValid[key](subject[key])) {
         errors[key] = null;
       } else {
         errors[key] = errorMessage[key];
         isSubjectValid = false;
       }
+      console.log(key, isSubjectValid);
     });
     return isSubjectValid;
   };
 
   const handleCancel = () => onDismiss();
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    //console.log("SubjectForm - handleSubmit");
+    //console.log("SubjectForm - does  it even call");
     isValidSubject(subject) && onSubmit(subject) && onDismiss();
     setErrors({ ...errors });
   };

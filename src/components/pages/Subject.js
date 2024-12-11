@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tray, Add } from "../UI/Actions.js";
 import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
@@ -16,19 +16,35 @@ function Subjects() {
   // useLoad -----------------------------------
 
   // State --------------------------------
-  const [subjects, , loadingMessage, loadSubjects] = useLoad(Lecturerendpoint);
-
+  const [subjects, loadingMessage, loadSubjects] = useLoad(Lecturerendpoint);
+  /*
+  const [subjects, setSubjects] = useState(null);
+  const [loadingMessage, setLoadingMessage] = useState("Loading records ...");
+  */
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
 
   // Context ------------------------------
   // Methods ------------------------------
+  /*
+  const loadSubjects = async () => {
+    const response = await API.get(subjectsEndpoint);
+    response.isSuccess
+      ? setSubjects(response.result)
+      : setLoadingMessage(response.message);
+  };
+
+  useEffect(() => {
+    loadSubjects();
+  }, []);
+*/
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);
   const handleDismissJoin = () => setShowJoinSubjectForm(false);
 
   const handleSubmit = async (subject) => {
+    //console.log("Subjects - handleSubmit");
     const response = await API.post(subjectsEndpoint, subject);
     return response.isSuccess ? loadSubjects(subjectsEndpoint) || true : false;
   };

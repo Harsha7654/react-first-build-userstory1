@@ -19,5 +19,5 @@ export default function useLoad(endpoint) {
   }, [endpoint]);
 
   // Return -------------------------------------
-  return [records, setRecords, loadingMessage, loadRecords];
+  return [records, loadingMessage, loadRecords];
 }

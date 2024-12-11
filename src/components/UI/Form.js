@@ -7,17 +7,20 @@ export default function Form({ children, onSubmit, oncancel }) {
   // State --------------------------------------
   // Context ------------------------------------
   // Handlers -----------------------------------
-  const handleSubmit = () => onSubmit;
+  const handleSubmit = () => {
+    //console.log("Form - handleSubmit");
+    onSubmit();
+  };
   const handleCancel = () => oncancel;
   // View ---------------------------------------
   return (
-    <form className="BorderedForm">
+    <div className="BorderedForm">
       <div className="FormTray">{children}</div>
       <Tray>
         <Submit showText onClick={handleSubmit} buttonText="Submit" />
         <Cancel showText onClick={handleCancel} buttonText="Cancel" />
       </Tray>
-    </form>
+    </div>
   );
 }
 
