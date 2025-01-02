@@ -16,7 +16,7 @@ function Subjects() {
   // useLoad -----------------------------------
 
   // State --------------------------------
-  const [subjects, loadingMessage, loadSubjects] = useLoad(Lecturerendpoint);
+  const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
   /*
   const [subjects, setSubjects] = useState(null);
   const [loadingMessage, setLoadingMessage] = useState("Loading records ...");
@@ -61,12 +61,13 @@ function Subjects() {
       ) : (
         <div className="subjects-container">
           {subjects.map((subject) => (
-            <div className="subject-card" key={subject.SubjectName}>
-              <div className="subject-title">{subject.SubjectName}</div>
-              <div className="subject-image">{subject.SubjectImageURL}</div>
-              <div className="subject-lecturer">
-                {subject.SubjectLecturerName}
+            <div className="subject-card" key={subject.name}>
+              <div className="subject-title">{subject.name}</div>
+              <div className="subject-image">
+                Difficulty: {subject.difficulty}
               </div>
+              <div className="subject-image">Level: {subject.level}</div>
+              <div className="subject-lecturer">{subject.image}</div>
             </div>
           ))}
         </div>
