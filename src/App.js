@@ -18,6 +18,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/subjects" element={<Subjects />} />
+          <Route path="/chapters" element={<Chapters />} />
         </Routes>
       </Layout>
     </BrowserRouter>
