@@ -1,4 +1,4 @@
 function Chapters() {
   // Initialisation --------------------------------
-  const chaptersEndpoint = `/`;
+  const chaptersEndpoint = `/chapters`;
 }
