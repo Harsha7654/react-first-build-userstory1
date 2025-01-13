@@ -6,6 +6,7 @@ import PageNotFound from "./components/pages/404";
 import SignIn from "./components/pages/SignIn";
 import ContactUs from "./components/pages/ContactUs";
 import Subjects from "./components/pages/Subject";
+import Chapters from "./components/pages/Chapters";
 import "./App.css";
 
 function App() {
