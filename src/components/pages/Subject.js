@@ -4,53 +4,42 @@ import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
+import Chapters from "./Chapters"; // Import Chapters Component
 
 function Subjects() {
-  // Initialisation ---------------------------
-  const loggedinUserIDforLecturer = 1;
-  const loggedinUserIDforUser = 5;
-  const Lecturerendpoint = `/subjects/lecturer/${loggedinUserIDforLecturer}`;
-  const Userendpoint = `/subjects/users/${loggedinUserIDforUser}`;
   const subjectsEndpoint = `/subjects`;
 
-  // useLoad -----------------------------------
-
-  // State --------------------------------
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
-  /*
-  const [subjects, setSubjects] = useState(null);
-  const [loadingMessage, setLoadingMessage] = useState("Loading records ...");
-  */
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState(null); // New State
 
-  // Context ------------------------------
-  // Methods ------------------------------
-  /*
-  const loadSubjects = async () => {
-    const response = await API.get(subjectsEndpoint);
-    response.isSuccess
-      ? setSubjects(response.result)
-      : setLoadingMessage(response.message);
-  };
-
-  useEffect(() => {
-    loadSubjects();
-  }, []);
-*/
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);
   const handleDismissJoin = () => setShowJoinSubjectForm(false);
 
+  const handleSubjectClick = (subject) => {
+    setSelectedSubject(subject); // Set the clicked subject
+  };
+
+  const handleBackToSubjects = () => setSelectedSubject(null); // Clear selection
+
   const handleSubmit = async (subject) => {
-    console.log("Subjects - handleSubmit");
     const response = await API.post(subjectsEndpoint, subject);
-    console.log("[handleSubmit] response: ", JSON.stringify(response));
     return response.isSuccess ? loadSubjects(subjectsEndpoint) || true : false;
   };
 
-  // View ---------------------------------
+  if (selectedSubject) {
+    // Render Chapters for the selected subject
+    return (
+      <Chapters
+        subject={selectedSubject}
+        onBack={handleBackToSubjects} // Back to Subjects button
+      />
+    );
+  }
+
   return (
     <section>
       <h1>My Subjects</h1>
@@ -62,7 +51,11 @@ function Subjects() {
       ) : (
         <div className="subjects-container">
           {subjects.map((subject) => (
-            <div className="subject-card" key={subject.name}>
+            <div
+              className="subject-card"
+              key={subject.name}
+              onClick={() => handleSubjectClick(subject)} // Handle click
+            >
               <div className="subject-title">{subject.name}</div>
               <div className="subject-image">
                 Difficulty: {subject.difficulty}
