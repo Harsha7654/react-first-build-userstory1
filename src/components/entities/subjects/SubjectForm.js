@@ -3,9 +3,10 @@ import Form from "../../UI/Form";
 import "./SubjectForm.css";
 
 const emptySubject = {
-  SubjectName: "",
-  SubjectImageURL: "",
-  SubjectLecturerID: 0,
+  name: "",
+  image: "",
+  level: 0,
+  difficulty: "",
 };
 
 export default function SubjectForm({
@@ -13,19 +14,21 @@ export default function SubjectForm({
   onSubmit,
   initialsubject = emptySubject,
 }) {
-  // Initialisation ------------------------------
   const isValid = {
-    SubjectName: (name) => name.length > 8,
-    SubjectImageURL: (img) => img.length > 10,
-    SubjectLecturerID: (id) => id > 0 && id < 2,
+    name: (name) => name.length > 8,
+    image: (img) => img.length > 10,
+    level: (level) => level > 0 && level < 4,
+    difficulty: (difficulty) =>
+      ["Easy", "Moderate", "Hard"].includes(difficulty),
   };
 
   const errorMessage = {
-    SubjectName: "Subject Name is too short",
-    SubjectImageURL: "Image URL is not valid",
-    SubjectLecturerID: "Invalid ID",
+    name: "Subject Name is too short",
+    image: "Image URL is not valid",
+    level: "Invalid level (should be between 1 and 3)",
+    difficulty: "Difficulty must be Easy, Moderate, or Hard",
   };
-  // State ---------------------------------------
+
   const [subject, setSubject] = useState(initialsubject);
   const [errors, setErrors] = useState(
     Object.keys(initialsubject).reduce(
@@ -33,10 +36,10 @@ export default function SubjectForm({
       {}
     )
   );
-  // Handlers ------------------------------------
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const newValue = name === "SubjectLecturerID" ? parseInt(value) : value;
+    const newValue = name === "SubjectLevel" ? parseInt(value) : value;
     setSubject({ ...subject, [name]: newValue });
     setErrors({
       ...errors,
@@ -44,8 +47,7 @@ export default function SubjectForm({
     });
   };
 
-  const isValidSubject = (subject) => {
-    //console.log("SubjectForm - isValidSubject");
+  const isValidSubject = () => {
     let isSubjectValid = true;
     Object.keys(isValid).forEach((key) => {
       if (isValid[key](subject[key])) {
@@ -54,67 +56,87 @@ export default function SubjectForm({
         errors[key] = errorMessage[key];
         isSubjectValid = false;
       }
-      console.log(key, isSubjectValid);
     });
+    setErrors({ ...errors });
     return isSubjectValid;
   };
 
   const handleCancel = () => onDismiss();
   const handleSubmit = () => {
-    //console.log("SubjectForm - handleSubmit");
-    //console.log("SubjectForm - does  it even call");
-    isValidSubject(subject) && onSubmit(subject) && onDismiss();
-    setErrors({ ...errors });
+    if (isValidSubject()) {
+      onSubmit(subject);
+      onDismiss();
+    }
   };
-  // View ----------------------------------------
+
   return (
     <Form onSubmit={handleSubmit} oncancel={handleCancel}>
       <Form.Item
-        label="Subject Name"
-        htmlFor="SubjectName"
+        label="name"
+        htmlFor="name"
         advice="Please enter the name of the subject"
-        error={errors.SubjectName}
+        error={errors.name}
       >
         <input
           type="text"
-          name="SubjectName"
-          value={subject.SubjectName}
+          name="name"
+          value={subject.name}
           onChange={handleChange}
         />
       </Form.Item>
 
       <Form.Item
-        label="Subject Image URL"
-        htmlFor="SubjectImageURL"
-        advice="Please enter the picture URL of the subject"
-        error={errors.SubjectImageURL}
+        label="level"
+        htmlFor="level"
+        advice="Choose the subject level between 1 and 3"
+        error={errors.level}
       >
-        <input
-          type="text"
-          name="SubjectImageURL"
-          value={subject.SubjectImageURL}
-          onChange={handleChange}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Subject Lecturer ID"
-        htmlFor="SubjectLecturerID"
-        advice="Choose the ID between 1 and 5 but choose 1"
-        error={errors.SubjectLecturerID}
-      >
-        <select
-          name="SubjectLecturerID"
-          value={subject.SubjectLecturerID}
-          onChange={handleChange}
-        >
+        <select name="level" value={subject.level} onChange={handleChange}>
           <option value="0" disabled>
-            Select lecturer ID 1
+            Select level
           </option>
-          {[1, 2, 3, 4, 5, 6].map((id) => (
-            <option key={id}>{id}</option>
+          {[1, 2, 3].map((level) => (
+            <option key={level} value={level}>
+              {level}
+            </option>
           ))}
         </select>
+      </Form.Item>
+
+      <Form.Item
+        label="difficulty"
+        htmlFor="difficulty"
+        advice="Choose the difficulty (Easy, Moderate, Hard)"
+        error={errors.difficulty}
+      >
+        <select
+          name="difficulty"
+          value={subject.difficulty}
+          onChange={handleChange}
+        >
+          <option value="" disabled>
+            Select difficulty
+          </option>
+          {["Easy", "Moderate", "Hard"].map((diff) => (
+            <option key={diff} value={diff}>
+              {diff}
+            </option>
+          ))}
+        </select>
+      </Form.Item>
+
+      <Form.Item
+        label="image"
+        htmlFor="image"
+        advice="Please enter the picture URL of the subject"
+        error={errors.image}
+      >
+        <input
+          type="text"
+          name="image"
+          value={subject.image}
+          onChange={handleChange}
+        />
       </Form.Item>
     </Form>
   );

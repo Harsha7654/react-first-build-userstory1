@@ -44,8 +44,9 @@ function Subjects() {
   const handleDismissJoin = () => setShowJoinSubjectForm(false);
 
   const handleSubmit = async (subject) => {
-    //console.log("Subjects - handleSubmit");
+    console.log("Subjects - handleSubmit");
     const response = await API.post(subjectsEndpoint, subject);
+    console.log("[handleSubmit] response: ", JSON.stringify(response));
     return response.isSuccess ? loadSubjects(subjectsEndpoint) || true : false;
   };
 
@@ -73,7 +74,6 @@ function Subjects() {
         </div>
       )}
 
-      <p>&nbsp;</p>
       <Tray>
         <Add showText onClick={handleAdd} buttonText="Add new Subject" />
         <Add showText onClick={handleJoin} buttonText="Join a Subject" />

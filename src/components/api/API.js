@@ -21,6 +21,8 @@ const callFetch = async (endpoint, method, dataObj) => {
   // Call the fetch and process the return
   try {
     const endpointAddress = API_URL + endpoint;
+    console.log("[Call fetch] endpoint: ", endpointAddress);
+    console.log("[Call fetch] requestobject: ", JSON.stringify(requestObj));
     const response = await fetch(endpointAddress, requestObj);
     const result = await response.json();
     return response.status >= 200 && response.status < 300
@@ -37,4 +39,4 @@ const callFetch = async (endpoint, method, dataObj) => {
   }
 };
 
-export default API.get;
+export default API;
