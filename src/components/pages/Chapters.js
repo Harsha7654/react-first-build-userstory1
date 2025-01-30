@@ -3,30 +3,39 @@ import { API } from "../api/API";
 import useLoad from "../api/useLoad";
 
 function Chapters({ subject, onBack }) {
-  //const [chapters, setChapters] = useState([]); // Ensure chapters is always an array
-  const [loading, setLoading] = useState(true);
+  const chaptersEndpoint = `/api/chapters/subject/${subject.SubjectID}`;
+  console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
 
-  const chaptersEndpoint = `/chapters/subject/${subject.subject_id}`;
-
+  // ✅ Move this hook to the top level
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
+
+  // Ensure subject is valid before proceeding
+  if (!subject || !subject.SubjectID) {
+    console.error("Error: Invalid subject object", subject);
+    return <p>Error: No subject data available.</p>;
+  }
+
   return (
     <section>
       <button onClick={onBack}>← Back to Subjects</button>
       <h2>{subject.name} - Chapters</h2>
 
+      {loadingMessage && <p>{loadingMessage}</p>}
+
       {!chapters ? (
-        <p>{loadingMessage}</p>
-      ) : chapters.length === 0 ? ( // Check only after ensuring chapters is an array
+        <p>Loading...</p>
+      ) : chapters.length === 0 ? (
         <p>No chapters found</p>
       ) : (
-        <ul>
+        <div>
           {chapters.map((chapter) => (
-            <li key={chapter.chapter_id}>
-              <h3>{chapter.title}</h3>
-              <p>{chapter.content}</p>
-            </li>
+            <div className="chapter-card" key={chapter.chapterName}>
+              <p> Welcome {chapter.chapter_id}</p>
+              <div>Title: {chapter.chapterName}</div>
+              <div>Author: {chapter.chapterAuthor}</div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </section>
   );
