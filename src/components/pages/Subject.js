@@ -12,7 +12,8 @@ function Subjects({ loggedinUserID }) {
   const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
-  const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
+  const [subjects, loadingMessage, loadSubjects] =
+    useLoad(subjectsUserEndpoint);
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
