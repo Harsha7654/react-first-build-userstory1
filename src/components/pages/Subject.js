@@ -6,14 +6,18 @@ import "./Subject.css";
 import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters"; // Import Chapters Component
 
-function Subjects() {
+function Subjects({ loggedinUserID }) {
+  // Initialisation
   const subjectsEndpoint = `/subjects`;
+  const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
+  // State
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
 
+  // Methods
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);

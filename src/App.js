@@ -11,6 +11,7 @@ import FauxLogin from "./components/pages/FauxLogin";
 import "./App.css";
 import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import MyDashboard from "./components/pages/MyDashboard";
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
               path="/subjects"
               element={
                 <ProtectedRoute>
-                  <Subjects />
+                  <MyDashboard />
                 </ProtectedRoute>
               }
             />
