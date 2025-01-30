@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { API } from "../api/API";
 import useLoad from "../api/useLoad";
+import "./Chapters.css";
 
 function Chapters({ subject, onBack }) {
   const chaptersEndpoint = `/api/chapters/subject/${subject.SubjectID}`;
@@ -27,9 +28,9 @@ function Chapters({ subject, onBack }) {
       ) : chapters.length === 0 ? (
         <p>No chapters found</p>
       ) : (
-        <div>
+        <div className="chapters-container">
           {chapters.map((chapter) => (
-            <div className="chapter-card" key={chapter.chapterName}>
+            <div className="chapters-card" key={chapter.chapterName}>
               <p> Welcome {chapter.chapter_id}</p>
               <div>Title: {chapter.chapterName}</div>
               <div>Author: {chapter.chapterAuthor}</div>
