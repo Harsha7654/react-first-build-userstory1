@@ -61,6 +61,7 @@ function Subjects({ loggedinUserID }) {
               key={subject.name}
               onClick={() => handleSubjectClick(subject)} // Handle click
             >
+              <p>Welcome {subject.UserID}</p>
               <div className="subject-title">{subject.name}</div>
               <div className="subject-image">
                 Difficulty: {subject.difficulty}
