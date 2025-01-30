@@ -37,7 +37,6 @@ function Chapters({ subject, onBack }) {
               <div className="subject-image">
                 Author: {chapter.chapterAuthor}
               </div>
-              <div className="subject-image">Brief: {chapter.chapterBrief}</div>
               <div className="subject-lecturer">{chapter.chapterImage}</div>
             </div>
           ))}
