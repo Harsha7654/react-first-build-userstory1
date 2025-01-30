@@ -28,8 +28,6 @@ export default function Login() {
   const handleStaffChange = (event) =>
     setSelectedUser(staff[parseInt(event.target.value)]);
 
-  const left = (str, num) => str.slice(0, num - str.length);
-
   // View ----------------------------------------
   return (
     <section>
@@ -45,17 +43,14 @@ export default function Login() {
               <option value={null}>Select student ...</option>
               {students.map((user, index) => (
                 <option key={user.UserID} value={index}>
-                  {`${user.UserUsername}, ${user.UserRoleID} (${left(
-                    user.UserEmail,
-                    8
-                  )})`}
+                  {`${user.UserUsername}, ${user.UserRoleID} (${user.UserEmail})`}
                 </option>
               ))}
             </select>
           </>
         )}
-        <h2>... as a member of staff</h2>
-        <label>Use this dropdown to select a staff member</label>
+        <h2>... as a teacher</h2>
+        <label>Use this dropdown to select a Teacher ID</label>
         {!staff ? (
           <p>{loadingStaffMessage}</p>
         ) : (
@@ -64,10 +59,7 @@ export default function Login() {
               <option value={null}>Select staff member ...</option>
               {staff.map((user, index) => (
                 <option key={user.UserID} value={index}>
-                  {`${user.UserUsername}, ${user.UserRoleID} (${left(
-                    user.UserEmail,
-                    8
-                  )})`}
+                  {`${user.UserUsername}, ${user.UserRoleID} (${user.UserEmail})`}
                 </option>
               ))}
             </select>
