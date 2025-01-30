@@ -7,21 +7,62 @@ import SignIn from "./components/pages/SignIn";
 import ContactUs from "./components/pages/ContactUs";
 import Subjects from "./components/pages/Subject";
 import Chapters from "./components/pages/Chapters";
+import FauxLogin from "./components/pages/FauxLogin";
 import "./App.css";
+import { AuthProvider } from "./components/auth/useAuth";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/subjects" element={<Subjects />} />
-          <Route path="/chapters" element={<Chapters />} />
-        </Routes>
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <ProtectedRoute>
+                  <SignIn />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <ProtectedRoute>
+                  <ContactUs />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="/login" element={<FauxLogin />} />
+            <Route
+              path="/subjects"
+              element={
+                <ProtectedRoute>
+                  <Subjects />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/chapters"
+              element={
+                <ProtectedRoute>
+                  <Chapters />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Layout>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
