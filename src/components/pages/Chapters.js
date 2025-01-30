@@ -1,52 +1,32 @@
-import { useState, useEffect } from "react";
-import { Tray, Add } from "../UI/Actions";
+import { useEffect, useState } from "react";
+import { API } from "../api/API";
 import useLoad from "../api/useLoad";
-import SubjectForm from "../entities/subjects/SubjectForm";
 
 function Chapters({ subject, onBack }) {
-  const chaptersEndpoint = `/chapters?subjectId=${subject.id}`; // Fetch chapters by subject ID
+  //const [chapters, setChapters] = useState([]); // Ensure chapters is always an array
+  const [loading, setLoading] = useState(true);
+
+  const chaptersEndpoint = `/chapters/subject/${subject.subject_id}`;
+
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
-  const [showNewChapterForm, setShowNewChapterForm] = useState(false);
-
-  const handleAdd = () => setShowNewChapterForm(true);
-  const handleDismissAdd = () => setShowNewChapterForm(false);
-
-  const handleSubmit = async (chapter) => {
-    console.log("Chapters - handleSubmit");
-    // Post new chapter for the selected subject
-    /*
-    chapter.subjectId = subject.id;
-    const response = await API.post(chaptersEndpoint, chapter);
-    return response.isSuccess ? loadChapters(chaptersEndpoint) || true : false;
-    */
-  };
-
   return (
     <section>
-      <h1>Chapters for {subject.name}</h1>
-      <button onClick={onBack}>Back to Subjects</button> {/* Back button */}
+      <button onClick={onBack}>← Back to Subjects</button>
+      <h2>{subject.name} - Chapters</h2>
+
       {!chapters ? (
         <p>{loadingMessage}</p>
-      ) : chapters.length === 0 ? (
+      ) : chapters.length === 0 ? ( // Check only after ensuring chapters is an array
         <p>No chapters found</p>
       ) : (
-        <div className="subjects-container">
+        <ul>
           {chapters.map((chapter) => (
-            <div className="subject-card" key={chapter.chapterName}>
-              <div className="subject-title">{chapter.chapterName}</div>
-              <div className="subject-image">
-                Author: {chapter.chapterAuthor}
-              </div>
-              <div className="subject-lecturer">{chapter.chapterImage}</div>
-            </div>
+            <li key={chapter.chapter_id}>
+              <h3>{chapter.title}</h3>
+              <p>{chapter.content}</p>
+            </li>
           ))}
-        </div>
-      )}
-      <Tray>
-        <Add showText onClick={handleAdd} buttonText="Add new Chapter" />
-      </Tray>
-      {showNewChapterForm && (
-        <SubjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmit} />
+        </ul>
       )}
     </section>
   );
