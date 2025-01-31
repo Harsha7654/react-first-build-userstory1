@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Tray, Add } from "../UI/Actions.js";
 import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
@@ -48,7 +48,7 @@ function Subjects({ loggedinUserID }) {
   return (
     <section>
       <h1>My Subjects</h1>
-
+      <p>Welcome {loggedinUserID.UserUsername}</p>
       {!subjects ? (
         <p>{loadingMessage}</p>
       ) : subjects.length === 0 ? (

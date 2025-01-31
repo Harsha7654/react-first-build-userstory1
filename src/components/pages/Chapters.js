@@ -5,7 +5,6 @@ function Chapters({ subject, onBack }) {
   const chaptersEndpoint = `/chapters/subject/${subject.SubjectID}`;
   console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
 
-  // ✅ Move this hook to the top level
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
 
   // Ensure subject is valid before proceeding

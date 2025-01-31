@@ -1,11 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Layout from "./components/layouts/Layout";
 import Home from "./components/pages/Home";
 import PageNotFound from "./components/pages/404";
 import SignIn from "./components/pages/SignIn";
 import ContactUs from "./components/pages/ContactUs";
-import Subjects from "./components/pages/Subject";
 import Chapters from "./components/pages/Chapters";
 import FauxLogin from "./components/pages/FauxLogin";
 import "./App.css";
@@ -50,6 +48,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <MyDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/chapters"
+              element={
+                <ProtectedRoute>
+                  <Chapters />
                 </ProtectedRoute>
               }
             />
