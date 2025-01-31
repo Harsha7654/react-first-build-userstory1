@@ -68,6 +68,7 @@ function Subjects({ loggedinUserID }) {
               </div>
               <div className="subject-image">Level: {subject.level}</div>
               <div className="subject-lecturer">{subject.image}</div>
+              <img src={subject.image} alt={subject.name} />
             </div>
           ))}
         </div>
