@@ -53,14 +53,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/chapters"
-              element={
-                <ProtectedRoute>
-                  <Chapters />
-                </ProtectedRoute>
-              }
-            />
           </Routes>
         </Layout>
       </AuthProvider>
