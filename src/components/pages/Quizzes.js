@@ -2,12 +2,12 @@ import useLoad from "../api/useLoad";
 import "./Quizzes.css";
 
 function Quizzes({ chapter, onBack }) {
-  const quizzesEndpoint = `/quizzes/chapter/${chapter.ChapterID}`;
+  const quizzesEndpoint = `/quizzes/chapter/${chapter.chapter_id}`;
   console.log("Fetching quizzes from:", quizzesEndpoint);
 
   const [quizzes, loadingMessage, loadQuizzes] = useLoad(quizzesEndpoint);
 
-  if (!chapter || !chapter.ChapterID) {
+  if (!chapter || !chapter.chapter_id) {
     console.error("Error: Invalid chapter object", chapter);
     return <p>Error: No chapter data available</p>;
   }
