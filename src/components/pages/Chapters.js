@@ -2,6 +2,7 @@ import useLoad from "../api/useLoad";
 import "./Chapters.css";
 
 function Chapters({ subject, onBack }) {
+  //Initialisation
   const chaptersEndpoint = `/chapters/subject/${subject.SubjectID}`;
   console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
 
