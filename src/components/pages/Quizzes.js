@@ -1,15 +1,26 @@
+import { useState } from "react";
 import useLoad from "../api/useLoad";
 import "./Quizzes.css";
+import Questions from "./Questions";
 
 function Quizzes({ chapter, onBack }) {
   const quizzesEndpoint = `/quizzes/chapter/${chapter.chapter_id}`;
   console.log("Fetching quizzes from:", quizzesEndpoint);
 
   const [quizzes, loadingMessage, loadQuizzes] = useLoad(quizzesEndpoint);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+
+  const handleQuizClick = (quiz) => {
+    setSelectedQuiz(quiz);
+  };
 
   if (!chapter || !chapter.chapter_id) {
     console.error("Error: Invalid chapter object", chapter);
     return <p>Error: No chapter data available</p>;
+  }
+
+  if (selectedQuiz) {
+    return <Questions />;
   }
 
   return (
@@ -24,7 +35,11 @@ function Quizzes({ chapter, onBack }) {
       ) : (
         <div className="quizzes-container">
           {quizzes.map((quiz) => (
-            <div className="quiz-card" key={quiz.quiz_id}>
+            <div
+              className="quiz-card"
+              key={quiz.quiz_id}
+              onClick={() => handleQuizClick(quiz)}
+            >
               <div>Quiz Title: {quiz.quizTitle}</div>
               <div>Quiz Duration: {quiz.quizDuration}</div>
               <div>No. of questions: {quiz.quizQuestions}</div>
