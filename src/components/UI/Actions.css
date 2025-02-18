@@ -4,13 +4,13 @@
 
 div.ActionTray {
   /* Appearance */
+  margin: 0px;
 
   /* Layout */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin: 20px;
 }
 
 button.Action {
@@ -18,36 +18,66 @@ button.Action {
   height: 36px;
   padding: 5px;
   background: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
+  border-radius: 18px;
   cursor: pointer;
 
   /* Layout */
   display: flex;
   align-items: center;
   gap: 10px;
-
-  p {
-    flex: 1;
-    min-width: 50px;
-    text-align: center;
-    margin-right: 5px;
-  }
-
-  img {
-    filter: opacity(0.1);
-  }
-
-  &:hover {
-    border: 1px rgba(0, 0, 0, 0.8);
-    p {
-      color: rgba(0, 0, 0, 0.8);
-    }
-    img {
-      filter: opacity(0.8);
-    }
-  }
 }
-#cancel-button {
-  background-color: #e34439;
+
+button.Action p {
+  flex: 1;
+  min-width: 50px;
+  text-align: center;
+  margin-right: 5px;
+}
+
+/* Action appearance when no hover */
+button.Action {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+button.Action img {
+  filter: opacity(0.1);
+}
+
+button.Action p {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+/* Action appearance when ActionTray (or context) hovered */
+main.ModalPane:hover button.Action:not(:hover),
+div.Card.Hovering button.Action:not(:hover),
+form:hover button.Action:not(:hover),
+div.ActionTray:hover button.Action:not(:hover) {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+main.ModalPane:hover button.Action:not(:hover) img,
+div.Card.Hovering button.Action:not(:hover) img,
+form:hover button.Action:not(:hover) img,
+div.ActionTray:hover button.Action:not(:hover) img {
+  filter: opacity(0.4);
+}
+
+main.ModalPane:hover button.Action:not(:hover) p,
+div.Card.Hovering button.Action:not(:hover) p,
+form:hover button.Action:not(:hover) p,
+div.ActionTray:hover button.Action:not(:hover) p {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* Action appearance hover over button */
+button.Action:hover {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+button.Action:hover img {
+  filter: opacity(0.8);
+}
+
+button.Action:hover p {
+  color: rgba(0, 0, 0, 0.8);
 }

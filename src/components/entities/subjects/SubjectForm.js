@@ -10,23 +10,26 @@ const emptySubject = {
 };
 
 export default function SubjectForm({
-  onDismiss,
+  onCancel,
   onSubmit,
-  initialsubject = emptySubject,
+  initialRecord = emptySubject,
 }) {
-  const isValid = {
-    name: (name) => name.length > 8,
-    image: (img) => img.length > 10,
-    level: (level) => level > 0 && level < 4,
-    difficulty: (difficulty) =>
-      ["Easy", "Moderate", "Hard"].includes(difficulty),
-  };
+  // Initialisation ----------------------
+  const validation = {
+    isValid: {
+      name: (name) => name.length > 8,
+      image: (img) => img.length > 10,
+      level: (level) => level > 0 && level < 4,
+      difficulty: (difficulty) =>
+        ["Easy", "Moderate", "Hard"].includes(difficulty),
+    },
 
-  const errorMessage = {
-    name: "Subject Name is too short",
-    image: "Image URL is not valid",
-    level: "Invalid level (should be between 1 and 3)",
-    difficulty: "Difficulty must be Easy, Moderate, or Hard",
+    errorMessage: {
+      name: "Subject Name is too short",
+      image: "Image URL is not valid",
+      level: "Invalid level (should be between 1 and 3)",
+      difficulty: "Difficulty must be Easy, Moderate, or Hard",
+    },
   };
 
   const conformance = {
@@ -43,7 +46,7 @@ export default function SubjectForm({
       difficulty: (difficulty) => difficulty,
     },
   };
-
+  /*
   const [subject, setSubject] = useState(initialsubject);
   const [errors, setErrors] = useState(
     Object.keys(initialsubject).reduce(
@@ -51,7 +54,12 @@ export default function SubjectForm({
       {}
     )
   );
+  */
 
+  const [subject, errors, handleChange, handleSubmit, handleCancel] =
+    Form.useForm(initialRecord, conformance, validation, onCancel, onSubmit);
+
+  /*
   const handleChange = (event) => {
     const { name, value } = event.target;
     const newValue = name === "SubjectLevel" ? parseInt(value) : value;
@@ -83,9 +91,10 @@ export default function SubjectForm({
       onDismiss();
     }
   };
+*/
 
   return (
-    <Form onSubmit={handleSubmit} oncancel={handleCancel}>
+    <Form onSubmit={handleSubmit} onCancel={onCancel}>
       <Form.Item
         label="name"
         htmlFor="name"
@@ -95,7 +104,7 @@ export default function SubjectForm({
         <input
           type="text"
           name="name"
-          value={subject.name}
+          value={conformance.js2html["name"](subject.name)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -106,7 +115,11 @@ export default function SubjectForm({
         advice="Choose the subject level between 1 and 3"
         error={errors.level}
       >
-        <select name="level" value={subject.level} onChange={handleChange}>
+        <select
+          name="level"
+          value={conformance.js2html["level"](subject.level)}
+          onChange={handleChange}
+        >
           <option value="0" disabled>
             Select level
           </option>
@@ -126,7 +139,7 @@ export default function SubjectForm({
       >
         <select
           name="difficulty"
-          value={subject.difficulty}
+          value={conformance.js2html["difficulty"](subject.difficulty)}
           onChange={handleChange}
         >
           <option value="" disabled>
@@ -149,7 +162,7 @@ export default function SubjectForm({
         <input
           type="text"
           name="image"
-          value={subject.image}
+          value={conformance.js2html["image"](subject.image)}
           onChange={handleChange}
         />
       </Form.Item>
