@@ -93,8 +93,10 @@ export default function SubjectForm({
   };
 */
 
+  //const handleCancel = () => onDismiss();
+
   return (
-    <Form onSubmit={handleSubmit} onCancel={onCancel}>
+    <Form onSubmit={handleSubmit} onCancel={handleCancel}>
       <Form.Item
         label="name"
         htmlFor="name"

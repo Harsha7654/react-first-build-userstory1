@@ -92,10 +92,10 @@ function useForm(
     setErrors({ ...errors });
   };
 
-  //const handleCancel = () => onCancel();
+  const handleCancel = () => onCancel();
 
   // View ----------------------------------------
-  return [record, errors, handleChange, handleSubmit];
+  return [record, errors, handleChange, handleSubmit, handleCancel];
 }
 
 // -----------------------------------------

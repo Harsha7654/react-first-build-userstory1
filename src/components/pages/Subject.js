@@ -80,7 +80,7 @@ function Subjects({ loggedinUserID }) {
       </Tray>
 
       {showNewSubjectForm && (
-        <SubjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmit} />
+        <SubjectForm onCancel={handleDismissAdd} onSubmit={handleSubmit} />
       )}
       {showJoinSubjectForm && <p>{"<JoinSubjectForm />"}</p>}
     </section>
