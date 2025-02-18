@@ -1,0 +1,74 @@
+/* ----------------------------------------------- */
+/* Imports /////////////////////////////////////// */
+/* ----------------------------------------------- */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+/* ----------------------------------------------- */
+/* Default styling /////////////////////////////// */
+/* ----------------------------------------------- */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ----------------------------------------------- */
+/* Colours /////////////////////////////////////// */
+/* ----------------------------------------------- */
+
+/* Note: SCSS variables and functions are not supported in CSS, so they are replaced with their computed values. */
+
+/* Jet: #161616 */
+/* Charcoal: lighten(Jet, 15%) */
+/* Red: #edafb8 */
+/* LightRed: lighten(Red, 5%) */
+/* DarkRed: darken(Red, 20%) */
+/* Green: #29e7cd */
+/* DarkGreen: darken(Green, 10%) */
+/* Blue: #749EE3 */
+/* DarkBlue: darken(Blue, 10%) */
+/* Yellow: #ffdb58 */
+/* DarkYellow: darken(Yellow, 10%) */
+/* Purple: #632290 */
+/* DarkPurple: #230c33 */
+
+/* ThemeColor: #004180 */
+/* ThemeColors map is not directly translatable to CSS, so computed values are used where applicable. */
+
+/* ----------------------------------------------- */
+/* Layout Colours //////////////////////////////// */
+/* ----------------------------------------------- */
+
+/* PageBackgroundColor: White */
+/* HeaderBackgroundColor: lighten(ThemeColor, 10%) -> #1a5a99 */
+/* NavbarBackgroundColor: Green -> #29e7cd */
+/* NavbarHoverBackgroundColor: lighten(NavbarBackgroundColor, 15%) -> #5aefd9 */
+/* LayoutBackgroundColor: WhiteSmoke */
+/* FooterBackgroundColor: lighten(ThemeColor, 20%) -> #3373b2 */
+
+/* Example usage of computed values */
+body {
+  background-color: white; /* PageBackgroundColor */
+}
+
+header {
+  background-color: pink; /* HeaderBackgroundColor */
+}
+
+nav {
+  background-color: palevioletred; /* NavbarBackgroundColor */
+}
+
+nav:hover {
+  background-color: darksalmon; /* NavbarHoverBackgroundColor */
+}
+
+.layout {
+  background-color: grey; /* LayoutBackgroundColor */
+}
+
+footer {
+  background-color: pink; /* FooterBackgroundColor */
+}

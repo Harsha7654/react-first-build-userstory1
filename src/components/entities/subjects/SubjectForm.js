@@ -29,6 +29,21 @@ export default function SubjectForm({
     difficulty: "Difficulty must be Easy, Moderate, or Hard",
   };
 
+  const conformance = {
+    js2html: {
+      name: (name) => name,
+      image: (img) => img,
+      level: (level) => level,
+      difficulty: (difficulty) => difficulty,
+    },
+    html2js: {
+      name: (name) => name,
+      image: (img) => img,
+      level: (level) => parseInt(level),
+      difficulty: (difficulty) => difficulty,
+    },
+  };
+
   const [subject, setSubject] = useState(initialsubject);
   const [errors, setErrors] = useState(
     Object.keys(initialsubject).reduce(

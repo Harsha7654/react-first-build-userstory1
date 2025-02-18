@@ -1,66 +1,89 @@
-/* General FormItem container styling */
-.FormItem {
-  margin-bottom: 1.5rem; /* Space between form items */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Space between label, advice, input, and error */
-  font-family: Arial, sans-serif; /* Clean, readable font */
+/* ----------------------------------------------- */
+/* Styling /////////////////////////////////////// */
+/* ----------------------------------------------- */
+
+div.Form {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px 0;
+  padding: 20px;
+  border: 1px solid LightGrey;
+  border-radius: 5px;
 }
 
-/* Styling for the label */
-.FormLabel {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333; /* Darker color for readability */
+div.Form div.FormTray {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Styling for the advice paragraph */
-.FormAdvice {
-  font-size: 0.875rem; /* Slightly smaller than label */
-  color: #6c757d; /* Subtle gray color for non-essential advice */
-  margin: 0; /* Remove default paragraph margins */
+div.Form div.FormTray div.FormItem {
+  margin-bottom: 20px;
 }
 
-/* Styling for the error message */
-.FormError {
-  font-size: 0.875rem; /* Match advice text size */
-  color: #dc3545; /* Bootstrap's red for errors */
-  margin: 0; /* Remove default paragraph margins */
-  font-weight: 500;
+div.Form div.FormTray div.FormItem label.FormLabel {
+  display: block;
+  font-weight: 600;
 }
 
-/* Add some padding to children (e.g., input, select, textarea) */
-.FormItem input,
-.FormItem select,
-.FormItem textarea {
-  padding: 0.5rem;
-  border: 1px solid #ced4da; /* Light gray border */
-  border-radius: 4px; /* Rounded corners */
-  font-size: 1rem;
-  outline: none; /* Remove default outline */
-  transition: border-color 0.2s ease-in-out; /* Smooth focus effect */
+div.Form div.FormTray div.FormItem p.FormAdvice {
+  color: #1fbfab; /* Darkened Cyan (10%) */
+  font-weight: 400;
+  font-size: 90%;
 }
 
-/* Focused inputs */
-.FormItem input:focus,
-.FormItem select:focus,
-.FormItem textarea:focus {
-  border-color: #007bff; /* Blue border on focus */
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle focus ring */
+div.Form div.FormTray div.FormItem select,
+div.Form div.FormTray div.FormItem input {
+  width: 100%;
+  padding: 3px;
+  margin: 1px 0;
+  font-size: 100%;
+  border-radius: 0px;
+  border: 1px solid LightGrey;
+  background: White;
 }
 
-/* Disabled inputs */
-.FormItem input[disabled],
-.FormItem select[disabled],
-.FormItem textarea[disabled] {
-  background-color: #e9ecef; /* Light gray background for disabled state */
-  cursor: not-allowed;
-  color: #6c757d; /* Match advice color */
+div.Form div.FormTray div.FormItem select::placeholder,
+div.Form div.FormTray div.FormItem input::placeholder,
+div.Form div.FormTray div.FormItem select:disabled,
+div.Form div.FormTray div.FormItem input:disabled {
+  color: Grey;
+  font-weight: 300;
 }
 
-/* Add hover effects for interactive elements */
-.FormItem input:hover:not(:focus),
-.FormItem select:hover:not(:focus),
-.FormItem textarea:hover:not(:focus) {
-  border-color: #80bdff; /* Light blue border */
+div.Form div.FormTray div.FormItem select:hover,
+div.Form div.FormTray div.FormItem input:hover,
+div.Form div.FormTray div.FormItem select:focus,
+div.Form div.FormTray div.FormItem input:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  border-width: 1px;
+  border-style: solid;
+}
+
+div.Form div.FormTray div.FormItem select:hover,
+div.Form div.FormTray div.FormItem input:hover {
+  border-color: LightGrey;
+  outline-color: LightGrey;
+}
+
+div.Form div.FormTray div.FormItem select:focus,
+div.Form div.FormTray div.FormItem input:focus {
+  border-color: #1fbfab; /* Darkened Cyan (10%) */
+  outline-color: #1fbfab; /* Darkened Cyan (10%) */
+}
+
+div.Form div.FormTray div.FormItem input[type="number"] {
+  text-align: left;
+}
+
+div.Form div.FormTray div.FormItem select.FormError,
+div.Form div.FormTray div.FormItem input.FormError {
+  border-color: #c76a7a; /* Darkened Rose (20%) */
+  outline-color: #c76a7a; /* Darkened Rose (20%) */
+}
+
+div.Form div.FormTray div.FormItem p.FormError {
+  color: #c76a7a; /* Darkened Rose (20%) */
+  font-weight: 400;
+  font-size: 90%;
 }
