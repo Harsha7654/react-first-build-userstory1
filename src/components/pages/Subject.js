@@ -17,10 +17,12 @@ function Subjects({ loggedinUserID }) {
   const [subjects, loadingMessage, loadSubjects] =
     useLoad(subjectsUserEndpoint);
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
+  const [selectedForm, setSelectedForm] = useState(0);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
 
   // Methods
+  const reloadSubjects = () => loadSubjects(subjectsUserEndpoint);
   const handleAdd = () => setShowNewSubjectForm(true);
   const handleJoin = () => setShowJoinSubjectForm(true);
   const handleDismissAdd = () => setShowNewSubjectForm(false);
@@ -36,6 +38,19 @@ function Subjects({ loggedinUserID }) {
     const response = await API.post(subjectsEndpoint, subject);
     return response.isSuccess ? loadSubjects(subjectsEndpoint) || true : false;
   };
+
+  const handleModifySubmit = async (subject) => {
+    const response = await API.put(
+      `${subjectsEndpoint}/${subject.subject_id}`,
+      subject
+    );
+    if (response.isSuccess) {
+      setSelectedForm(0);
+      response.isSuccess && reloadSubjects();
+    }
+  };
+
+  const handleModify = (id) => setSelectedForm(id === selectedForm ? 0 : id);
 
   if (selectedSubject) {
     // Render Chapters for the selected subject
@@ -71,6 +86,21 @@ function Subjects({ loggedinUserID }) {
               <div className="subject-image">Level: {subject.level}</div>
               <div className="subject-lecturer">{subject.image}</div>
               <img src={subject.image} alt={subject.name} />
+
+              <ToolTipDecorator message="Modify">
+                <Action.Modify
+                  showText
+                  onClick={() => handleModify(subject.subject_id)}
+                  buttonText="Modify"
+                />
+              </ToolTipDecorator>
+
+              {selectedForm === subject.subject_id && (
+                <SubjectForm
+                  onCancel={handleDismissAdd}
+                  onSubmit={handleModifySubmit}
+                />
+              )}
             </div>
           ))}
         </div>
