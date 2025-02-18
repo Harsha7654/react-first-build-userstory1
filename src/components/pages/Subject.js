@@ -5,6 +5,8 @@ import { API } from "../api/API";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters"; // Import Chapters Component
+import ToolTipDecorator from "../UI/ToolTipDecorator.js";
+import Action from "../UI/Actions.js";
 
 function Subjects({ loggedinUserID }) {
   // Initialisation
@@ -74,15 +76,35 @@ function Subjects({ loggedinUserID }) {
         </div>
       )}
 
-      <Tray>
-        <Add showText onClick={handleAdd} buttonText="Add new Subject" />
-        <Add showText onClick={handleJoin} buttonText="Join a Subject" />
-      </Tray>
+      <Action.Tray>
+        <ToolTipDecorator message="Add new subject">
+          <Action.Add
+            showText
+            onClick={handleAdd}
+            buttonText="Add a new subject"
+          />
+        </ToolTipDecorator>
+        <ToolTipDecorator message="Join a subject">
+          <Action.Add
+            showText
+            onClick={handleJoin}
+            buttonText="Join a subject"
+          />
+        </ToolTipDecorator>
+      </Action.Tray>
 
       {showNewSubjectForm && (
         <SubjectForm onCancel={handleDismissAdd} onSubmit={handleSubmit} />
       )}
-      {showJoinSubjectForm && <p>{"<JoinSubjectForm />"}</p>}
+      {showJoinSubjectForm && (
+        /*
+        <SubjectassignmentForm
+          onCancel={cancelAddSubjectassignmentForm}
+          onSubmit={handleAddSubjectassignmentSubmit}
+        />
+        */
+        <p>{"<JoinSubjectForm/>"}</p>
+      )}
     </section>
   );
 }
