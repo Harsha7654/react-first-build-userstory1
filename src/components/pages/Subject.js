@@ -16,6 +16,7 @@ function Subjects({ loggedinUserID }) {
   // State
   const [subjects, loadingMessage, loadSubjects] =
     useLoad(subjectsUserEndpoint);
+  const [students, , loadingStudentsMessage] = useLoad(`/users`);
   const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
   const [selectedForm, setSelectedForm] = useState(0);
   const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
@@ -65,7 +66,9 @@ function Subjects({ loggedinUserID }) {
   return (
     <section>
       <h1>My Subjects</h1>
+
       <p>Welcome {loggedinUserID.UserUsername}</p>
+
       {!subjects ? (
         <p>{loadingMessage}</p>
       ) : subjects.length === 0 ? (
@@ -90,7 +93,10 @@ function Subjects({ loggedinUserID }) {
               <ToolTipDecorator message="Modify">
                 <Action.Modify
                   showText
-                  onClick={() => handleModify(subject.subject_id)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleModify(subject.subject_id);
+                  }}
                   buttonText="Modify"
                 />
               </ToolTipDecorator>
