@@ -2,10 +2,10 @@ import Form from "../../UI/Form";
 import "./SubjectForm.css";
 
 const emptySubject = {
-  name: "",
-  image: "",
-  level: 0,
-  difficulty: "",
+  name: "emptySubjectsubzero",
+  image: "emptySubjectsubzero.png",
+  level: 3,
+  difficulty: "Hard",
 };
 
 export default function SubjectForm({
