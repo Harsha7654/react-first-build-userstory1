@@ -15,8 +15,7 @@ function Subjects({ loggedinUserID }) {
   const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
-  const [subjects, loadingMessage, loadSubjects] =
-    useLoad(subjectsUserEndpoint);
+  const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
   const [students, , loadingStudentsMessage] = useLoad(`/users`);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
 
@@ -48,9 +47,45 @@ function Subjects({ loggedinUserID }) {
       subject
     );
     if (response.isSuccess) {
-      response.isSuccess && reloadSubjects();
+      reloadSubjects();
+      closeModal(); // Close the modal after successful modification
     }
   };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await API.delete(`${subjectsEndpoint}/${id}`);
+      if (response.isSuccess) {
+        reloadSubjects(); // Reload subjects after successful deletion
+      } else {
+        showErrorModal("Delete failed!", response.message);
+      }
+    } catch (error) {
+      console.error("Failed to delete subject:", error);
+      showErrorModal("Delete failed!", "An unexpected error occurred.");
+    }
+  };
+
+  const deleteModal = (id) => {
+    openModal(
+      <div>
+        <p>Are you sure you want to delete this subject?</p>
+        <button onClick={() => handleDelete(id)}>Yes</button>
+        <button onClick={closeModal}>No</button>
+      </div>
+    );
+  };
+
+  const showErrorModal = (title, message) =>
+    openModal(
+      <div>
+        <h2>{title}</h2>
+        <p>{message}</p>
+        <ToolTipDecorator message="Click to dismiss error message">
+          <Action.Close showText onClick={closeModal} />
+        </ToolTipDecorator>
+      </div>
+    );
 
   const handleModify = (subject) =>
     openModal(
@@ -106,6 +141,17 @@ function Subjects({ loggedinUserID }) {
                     handleModify(subject);
                   }}
                   buttonText="Modify"
+                />
+              </ToolTipDecorator>
+
+              <ToolTipDecorator message="Delete">
+                <Action.Delete
+                  showText
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    deleteModal(subject.subject_id);
+                  }}
+                  buttonText="Delete"
                 />
               </ToolTipDecorator>
             </div>
