@@ -24,7 +24,7 @@ function Subjects({ loggedinUserID }) {
   const [showModal, modalContent, openModal, closeModal] = useModal();
 
   // Methods
-  const reloadSubjects = () => loadSubjects(subjectsUserEndpoint);
+  const reloadSubjects = () => loadSubjects(subjectsEndpoint);
   const handleAdd = () =>
     openModal(<SubjectForm onCancel={closeModal} onSubmit={handleSubmit} />);
   const handleJoin = () => openModal(<p>{"<JoinSubjectForm/>"}</p>);

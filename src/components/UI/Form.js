@@ -66,7 +66,7 @@ function useForm(
   // Handlers ------------------------------------
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const newValue = conformance.html2js[name](value);
+    let newValue = conformance.html2js[name](value);
     setRecord({ ...record, [name]: newValue });
     setErrors({
       ...errors,

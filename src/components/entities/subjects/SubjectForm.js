@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Form from "../../UI/Form";
 import "./SubjectForm.css";
 
@@ -14,7 +13,6 @@ export default function SubjectForm({
   onSubmit,
   initialRecord = emptySubject,
 }) {
-  // Initialisation ----------------------
   const validation = {
     isValid: {
       name: (name) => name.length > 8,
@@ -23,7 +21,6 @@ export default function SubjectForm({
       difficulty: (difficulty) =>
         ["Easy", "Moderate", "Hard"].includes(difficulty),
     },
-
     errorMessage: {
       name: "Subject Name is too short",
       image: "Image URL is not valid",
@@ -46,54 +43,9 @@ export default function SubjectForm({
       difficulty: (difficulty) => difficulty,
     },
   };
-  /*
-  const [subject, setSubject] = useState(initialsubject);
-  const [errors, setErrors] = useState(
-    Object.keys(initialsubject).reduce(
-      (accum, key) => ({ ...accum, [key]: null }),
-      {}
-    )
-  );
-  */
 
   const [subject, errors, handleChange, handleSubmit, handleCancel] =
     Form.useForm(initialRecord, conformance, validation, onCancel, onSubmit);
-
-  /*
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    const newValue = name === "SubjectLevel" ? parseInt(value) : value;
-    setSubject({ ...subject, [name]: newValue });
-    setErrors({
-      ...errors,
-      [name]: isValid[name](newValue) ? null : errorMessage[name],
-    });
-  };
-
-  const isValidSubject = () => {
-    let isSubjectValid = true;
-    Object.keys(isValid).forEach((key) => {
-      if (isValid[key](subject[key])) {
-        errors[key] = null;
-      } else {
-        errors[key] = errorMessage[key];
-        isSubjectValid = false;
-      }
-    });
-    setErrors({ ...errors });
-    return isSubjectValid;
-  };
-
-  const handleCancel = () => onDismiss();
-  const handleSubmit = () => {
-    if (isValidSubject()) {
-      onSubmit(subject);
-      onDismiss();
-    }
-  };
-*/
-
-  //const handleCancel = () => onDismiss();
 
   return (
     <Form onSubmit={handleSubmit} onCancel={handleCancel}>
