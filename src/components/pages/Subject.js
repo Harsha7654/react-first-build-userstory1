@@ -7,6 +7,7 @@ import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters"; // Import Chapters Component
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import Action from "../UI/Actions.js";
+import { Modal, useModal } from "../UI/Modal.js";
 
 function Subjects({ loggedinUserID }) {
   // Initialisation
@@ -17,17 +18,18 @@ function Subjects({ loggedinUserID }) {
   const [subjects, loadingMessage, loadSubjects] =
     useLoad(subjectsUserEndpoint);
   const [students, , loadingStudentsMessage] = useLoad(`/users`);
-  const [showNewSubjectForm, setShowNewSubjectForm] = useState(false);
-  const [selectedForm, setSelectedForm] = useState(0);
-  const [showJoinSubjectForm, setShowJoinSubjectForm] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
+
+  // Modal state
+  const [showModal, modalContent, openModal, closeModal] = useModal();
 
   // Methods
   const reloadSubjects = () => loadSubjects(subjectsUserEndpoint);
-  const handleAdd = () => setShowNewSubjectForm(true);
-  const handleJoin = () => setShowJoinSubjectForm(true);
-  const handleDismissAdd = () => setShowNewSubjectForm(false);
-  const handleDismissJoin = () => setShowJoinSubjectForm(false);
+  const handleAdd = () =>
+    openModal(<SubjectForm onCancel={closeModal} onSubmit={handleSubmit} />);
+  const handleJoin = () => openModal(<p>{"<JoinSubjectForm/>"}</p>);
+  const handleDismissAdd = () => closeModal();
+  const handleDismissJoin = () => closeModal();
 
   const handleSubjectClick = (subject) => {
     setSelectedSubject(subject); // Set the clicked subject
@@ -46,12 +48,18 @@ function Subjects({ loggedinUserID }) {
       subject
     );
     if (response.isSuccess) {
-      setSelectedForm(0);
       response.isSuccess && reloadSubjects();
     }
   };
 
-  const handleModify = (id) => setSelectedForm(id === selectedForm ? 0 : id);
+  const handleModify = (subject) =>
+    openModal(
+      <SubjectForm
+        initialRecord={subject}
+        onCancel={closeModal}
+        onSubmit={handleModifySubmit}
+      />
+    );
 
   if (selectedSubject) {
     // Render Chapters for the selected subject
@@ -95,18 +103,11 @@ function Subjects({ loggedinUserID }) {
                   showText
                   onClick={(event) => {
                     event.stopPropagation();
-                    handleModify(subject.subject_id);
+                    handleModify(subject);
                   }}
                   buttonText="Modify"
                 />
               </ToolTipDecorator>
-
-              {selectedForm === subject.subject_id && (
-                <SubjectForm
-                  onCancel={handleDismissAdd}
-                  onSubmit={handleModifySubmit}
-                />
-              )}
             </div>
           ))}
         </div>
@@ -129,18 +130,9 @@ function Subjects({ loggedinUserID }) {
         </ToolTipDecorator>
       </Action.Tray>
 
-      {showNewSubjectForm && (
-        <SubjectForm onCancel={handleDismissAdd} onSubmit={handleSubmit} />
-      )}
-      {showJoinSubjectForm && (
-        /*
-        <SubjectassignmentForm
-          onCancel={cancelAddSubjectassignmentForm}
-          onSubmit={handleAddSubjectassignmentSubmit}
-        />
-        */
-        <p>{"<JoinSubjectForm/>"}</p>
-      )}
+      <Modal show={showModal} title="Subject Form" onClose={closeModal}>
+        {modalContent}
+      </Modal>
     </section>
   );
 }
