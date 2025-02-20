@@ -15,8 +15,7 @@ function Subjects({ loggedinUserID }) {
   const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
-  const [subjects, loadingMessage, loadSubjects] =
-    useLoad(subjectsUserEndpoint);
+  const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
   const [students, , loadingStudentsMessage] = useLoad(`/users`);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
 

@@ -4,23 +4,23 @@ import "./Chapters.css";
 import Quizzes from "./Quizzes";
 
 function Chapters({ subject, onBack }) {
-  //Initialisation
-  const chaptersEndpoint = `/chapters/subject/${subject.SubjectID}`;
+  // Initialisation
+  const chaptersEndpoint = `/chapters/subject/${subject.subject_id}`;
   console.log("The undefined variable: ", `${JSON.stringify(subject)}`); // Debugging
   console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
 
-  //State
+  // State
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
   const [selectedChapter, setSelectedChapter] = useState(null);
 
-  //Methods
+  // Methods
   const handleChapterClick = (chapter) => {
     setSelectedChapter(chapter);
   };
   const handleBacktoChapters = () => setSelectedChapter(null);
 
   // Ensure subject is valid before proceeding
-  if (!subject || !subject.SubjectID) {
+  if (!subject || !subject.subject_id) {
     console.error("Error: Invalid subject object", subject);
     return <p>Error: No subject data available.</p>;
   }
