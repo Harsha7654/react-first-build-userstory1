@@ -6,6 +6,7 @@ import Quizzes from "./Quizzes";
 function Chapters({ subject, onBack }) {
   //Initialisation
   const chaptersEndpoint = `/chapters/subject/${subject.SubjectID}`;
+  console.log("The undefined variable: ", `${JSON.stringify(subject)}`); // Debugging
   console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
 
   //State

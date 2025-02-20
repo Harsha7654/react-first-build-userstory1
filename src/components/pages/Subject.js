@@ -15,7 +15,8 @@ function Subjects({ loggedinUserID }) {
   const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
-  const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
+  const [subjects, loadingMessage, loadSubjects] =
+    useLoad(subjectsUserEndpoint);
   const [students, , loadingStudentsMessage] = useLoad(`/users`);
   const [selectedSubject, setSelectedSubject] = useState(null); // New State
 
@@ -121,7 +122,7 @@ function Subjects({ loggedinUserID }) {
           {subjects.map((subject) => (
             <div
               className="subject-card"
-              key={subject.name}
+              key={subject.subject_id}
               onClick={() => handleSubjectClick(subject)} // Handle click
             >
               <p>Welcome {subject.UserID}</p>
