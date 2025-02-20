@@ -57,6 +57,7 @@ function Subjects({ loggedinUserID }) {
       const response = await API.delete(`${subjectsEndpoint}/${id}`);
       if (response.isSuccess) {
         reloadSubjects(); // Reload subjects after successful deletion
+        closeModal(); // Close the modal after successful modification
       } else {
         showErrorModal("Delete failed!", response.message);
       }
