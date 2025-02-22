@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Tray, Add } from "../UI/Actions.js";
 import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
-import Chapters from "./Chapters"; // Import Chapters Component
+import Chapters from "./Chapters";
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import Action from "../UI/Actions.js";
 import { Modal, useModal } from "../UI/Modal.js";
@@ -12,12 +11,11 @@ import { Modal, useModal } from "../UI/Modal.js";
 function Subjects({ loggedinUserID }) {
   // Initialisation
   const subjectsEndpoint = `/subjects`;
-  const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
+  //const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
-  const [students, , loadingStudentsMessage] = useLoad(`/users`);
-  const [selectedSubject, setSelectedSubject] = useState(null); // New State
+  const [selectedSubject, setSelectedSubject] = useState(null);
 
   // Modal state
   const [showModal, modalContent, openModal, closeModal] = useModal();
@@ -27,14 +25,14 @@ function Subjects({ loggedinUserID }) {
   const handleAdd = () =>
     openModal(<SubjectForm onCancel={closeModal} onSubmit={handleSubmit} />);
   const handleJoin = () => openModal(<p>{"<JoinSubjectForm/>"}</p>);
-  const handleDismissAdd = () => closeModal();
-  const handleDismissJoin = () => closeModal();
+  //const handleDismissAdd = () => closeModal();
+  //const handleDismissJoin = () => closeModal();
 
   const handleSubjectClick = (subject) => {
     setSelectedSubject(subject); // Set the clicked subject
   };
 
-  const handleBackToSubjects = () => setSelectedSubject(null); // Clear selection
+  const handleBackToSubjects = () => setSelectedSubject(null);
 
   const handleSubmit = async (subject) => {
     const response = await API.post(subjectsEndpoint, subject);
@@ -48,7 +46,7 @@ function Subjects({ loggedinUserID }) {
     );
     if (response.isSuccess) {
       reloadSubjects();
-      closeModal(); // Close the modal after successful modification
+      closeModal();
     }
   };
 
@@ -56,8 +54,8 @@ function Subjects({ loggedinUserID }) {
     try {
       const response = await API.delete(`${subjectsEndpoint}/${id}`);
       if (response.isSuccess) {
-        reloadSubjects(); // Reload subjects after successful deletion
-        closeModal(); // Close the modal after successful modification
+        reloadSubjects();
+        closeModal();
       } else {
         showErrorModal("Delete failed!", response.message);
       }
@@ -98,13 +96,7 @@ function Subjects({ loggedinUserID }) {
     );
 
   if (selectedSubject) {
-    // Render Chapters for the selected subject
-    return (
-      <Chapters
-        subject={selectedSubject}
-        onBack={handleBackToSubjects} // Back to Subjects button
-      />
-    );
+    return <Chapters subject={selectedSubject} onBack={handleBackToSubjects} />;
   }
 
   return (
@@ -123,7 +115,7 @@ function Subjects({ loggedinUserID }) {
             <div
               className="subject-card"
               key={subject.subject_id}
-              onClick={() => handleSubjectClick(subject)} // Handle click
+              onClick={() => handleSubjectClick(subject)}
             >
               <p>Welcome {subject.UserID}</p>
               <div className="subject-title">{subject.name}</div>

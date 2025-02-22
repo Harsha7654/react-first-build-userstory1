@@ -10,7 +10,6 @@ import "./App.css";
 import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
-import Subjects from "./components/pages/Subject";
 
 function App() {
   return (
