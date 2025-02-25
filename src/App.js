@@ -6,10 +6,12 @@ import SignIn from "./components/pages/SignIn";
 import ContactUs from "./components/pages/ContactUs";
 import Chapters from "./components/pages/Chapters";
 import FauxLogin from "./components/pages/FauxLogin";
+import Account from "./components/pages/Account";
 import "./App.css";
 import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
+import Subjects from "./components/pages/Subject";
 
 function App() {
   return (
@@ -56,6 +58,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Chapters />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <ProtectedRoute>
+                  <Account />
                 </ProtectedRoute>
               }
             />

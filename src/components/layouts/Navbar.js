@@ -20,9 +20,9 @@ function Navbar() {
           My Subjects
         </NavLink>
       </div>
-      <div className="navItem">
-        <NavLink to="/signin" className={getLinkStyle}>
-          Sign In
+      <div className="navItem accountNavItem">
+        <NavLink to="/account" className={getLinkStyle}>
+          Account
         </NavLink>
       </div>
       <div className="navItem">

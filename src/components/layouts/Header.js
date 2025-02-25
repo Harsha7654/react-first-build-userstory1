@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../auth/useAuth";
 import "./Header.css";
 
 function Header() {
   // Initialisation -----------------------
+  const { loggedinUser } = useAuth();
   // Properties ---------------------------
   // Hooks --------------------------------
   // Context ------------------------------
@@ -21,7 +22,11 @@ function Header() {
         <h1>Kuizz App</h1>
       </Link>
       <div className="login">
-        <p>Welcome John Doe!</p>
+        {loggedinUser ? (
+          <p>Welcome {loggedinUser.UserUsername}!</p>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </div>
     </header>
   );

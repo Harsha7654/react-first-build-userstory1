@@ -15,12 +15,11 @@ export default function Login() {
   const [staff, , loadingStaffMessage] = useLoad(`/users/userRole/1`);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // Context -------------------------------------
   // Methods -------------------------------------
   const handleSubmit = (event) => {
     event.preventDefault();
     login(selectedUser);
-    navigate(state?.path || "/");
+    navigate("/account");
   };
 
   const handleStudentChange = (event) =>
