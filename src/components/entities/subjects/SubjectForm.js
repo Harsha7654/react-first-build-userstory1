@@ -50,7 +50,7 @@ export default function SubjectForm({
   return (
     <Form onSubmit={handleSubmit} onCancel={handleCancel}>
       <Form.Item
-        label="name"
+        label="Subject Name"
         htmlFor="name"
         advice="Please enter the name of the subject"
         error={errors.name}
@@ -64,7 +64,7 @@ export default function SubjectForm({
       </Form.Item>
 
       <Form.Item
-        label="level"
+        label="Subject Level"
         htmlFor="level"
         advice="Choose the subject level between 1 and 3"
         error={errors.level}
@@ -86,7 +86,7 @@ export default function SubjectForm({
       </Form.Item>
 
       <Form.Item
-        label="difficulty"
+        label="Subject Difficulty"
         htmlFor="difficulty"
         advice="Choose the difficulty (Easy, Moderate, Hard)"
         error={errors.difficulty}
@@ -108,7 +108,7 @@ export default function SubjectForm({
       </Form.Item>
 
       <Form.Item
-        label="image"
+        label="Subject Image"
         htmlFor="image"
         advice="Please enter the picture URL of the subject"
         error={errors.image}
