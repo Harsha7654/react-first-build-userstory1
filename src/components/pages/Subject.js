@@ -20,14 +20,18 @@ function Subjects({ loggedinUserID }) {
 
   // Modal state
   const [showModal, modalContent, openModal, closeModal] = useModal();
+  const [modalTitle, setModalTitle] = useState("");
 
   // Methods
   const reloadSubjects = () => loadSubjects(subjectsEndpoint);
-  const handleAdd = () =>
+  const handleAdd = () => {
+    setModalTitle("Add new subject");
     openModal(<SubjectForm onCancel={closeModal} onSubmit={handleSubmit} />);
-  const handleJoin = () => openModal(<p>{"<JoinSubjectForm/>"}</p>);
-  //const handleDismissAdd = () => closeModal();
-  //const handleDismissJoin = () => closeModal();
+  };
+  const handleJoin = () => {
+    setModalTitle("Join a subject");
+    openModal(<p>{"<JoinSubjectForm/>"}</p>);
+  };
 
   const handleSubjectClick = (subject) => {
     setSelectedSubject(subject); // Set the clicked subject
@@ -67,6 +71,7 @@ function Subjects({ loggedinUserID }) {
   };
 
   const deleteModal = (id) => {
+    setModalTitle("Delete subject");
     openModal(
       <div>
         <p>Are you sure you want to delete this subject?</p>
@@ -76,7 +81,8 @@ function Subjects({ loggedinUserID }) {
     );
   };
 
-  const showErrorModal = (title, message) =>
+  const showErrorModal = (title, message) => {
+    setModalTitle(title);
     openModal(
       <div>
         <h2>{title}</h2>
@@ -86,8 +92,10 @@ function Subjects({ loggedinUserID }) {
         </ToolTipDecorator>
       </div>
     );
+  };
 
-  const handleModify = (subject) =>
+  const handleModify = (subject) => {
+    setModalTitle("Modify subject");
     openModal(
       <SubjectForm
         initialRecord={subject}
@@ -95,6 +103,7 @@ function Subjects({ loggedinUserID }) {
         onSubmit={handleModifySubmit}
       />
     );
+  };
 
   if (selectedSubject) {
     return <Chapters subject={selectedSubject} onBack={handleBackToSubjects} />;
@@ -167,7 +176,7 @@ function Subjects({ loggedinUserID }) {
         </ToolTipDecorator>
       </Action.Tray>
 
-      <Modal show={showModal} title="Subject Form" onClose={closeModal}>
+      <Modal show={showModal} title={modalTitle} onClose={closeModal}>
         {modalContent}
       </Modal>
     </section>
