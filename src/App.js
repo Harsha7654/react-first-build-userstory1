@@ -7,6 +7,7 @@ import ContactUs from "./components/pages/ContactUs";
 import Chapters from "./components/pages/Chapters";
 import FauxLogin from "./components/pages/FauxLogin";
 import Account from "./components/pages/Account";
+import Logout from "./components/pages/Logout";
 import "./App.css";
 import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -69,6 +70,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </Layout>
       </AuthProvider>

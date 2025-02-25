@@ -19,7 +19,7 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     login(selectedUser);
-    navigate("/account");
+    navigate("/subjects");
   };
 
   const handleStudentChange = (event) =>
