@@ -9,7 +9,7 @@ import FauxLogin from "./components/pages/FauxLogin";
 import Account from "./components/pages/Account";
 import Logout from "./components/pages/Logout";
 import "./App.css";
-import { AuthProvider } from "./components/auth/useAuth";
+import { AuthProvider, useAuth } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
 import Subjects from "./components/pages/Subject";
@@ -70,7 +70,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/logout" element={<Logout />} />
+            <Route
+              path="/logout"
+              element={
+                <ProtectedRoute>
+                  <Logout />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Layout>
       </AuthProvider>
