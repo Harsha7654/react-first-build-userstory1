@@ -12,7 +12,6 @@ import { Modal, useModal } from "../UI/Modal.js";
 function Subjects({ loggedinUserID }) {
   // Initialisation
   const subjectsEndpoint = `/subjects`;
-  const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
 
   // State
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
