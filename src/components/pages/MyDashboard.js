@@ -9,7 +9,6 @@ export default function MyDashboard() {
   // View ----------------------------------------
   return (
     <section>
-      <h1>My Dashboard</h1>
       {loggedinUser?.UserRoleID === 2 ? (
         <ViewOnlySubjects loggedinUserID={loggedinUser.UserID} />
       ) : (

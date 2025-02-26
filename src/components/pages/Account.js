@@ -1,6 +1,6 @@
 import { useAuth } from "../auth/useAuth.js";
 
-export default function Account() {
+function Account() {
   const { loggedinUser } = useAuth();
 
   return (
@@ -25,3 +25,5 @@ export default function Account() {
     </section>
   );
 }
+
+export default Account;

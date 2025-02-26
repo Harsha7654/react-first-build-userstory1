@@ -17,7 +17,12 @@ function Navbar() {
       </div>
       <div className="navItem">
         <NavLink to="/subjects" className={getLinkStyle}>
-          My Subjects
+          Subjects
+        </NavLink>
+      </div>
+      <div className="navItem">
+        <NavLink to="/gradeCalculator" className={getLinkStyle}>
+          Grade Calculator
         </NavLink>
       </div>
       <div className="navItem">

@@ -109,7 +109,7 @@ function Subjects() {
 
   return (
     <section>
-      <h1>My Subjects</h1>
+      <h1>Subjects</h1>
       {!subjects ? (
         <p>{loadingMessage}</p>
       ) : subjects.length === 0 ? (

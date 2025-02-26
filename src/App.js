@@ -12,6 +12,7 @@ import "./App.css";
 import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
+import GradeCalculator from "./components/pages/GradeCalculator";
 
 function App() {
   //const { loggedinUser } = useAuth();
@@ -76,6 +77,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Logout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gradeCalculator"
+              element={
+                <ProtectedRoute>
+                  <GradeCalculator />
                 </ProtectedRoute>
               }
             />
