@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useAuth } from "../auth/useAuth.js";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters";
 
-function ViewOnlySubjects({ loggedinUserID }) {
+function ViewOnlySubjects() {
   // Initialisation
   //const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
   const subjectsUserEndpoint = `/subjects`;
   // State
-  const [subjects, loadingMessage, loadSubjects] =
-    useLoad(subjectsUserEndpoint);
+  const [subjects, loadingMessage] = useLoad(subjectsUserEndpoint);
   const [selectedSubject, setSelectedSubject] = useState(null);
 
   const handleSubjectClick = (subject) => {

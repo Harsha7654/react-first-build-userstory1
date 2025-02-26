@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../auth/useAuth.js";
 import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
@@ -9,7 +8,7 @@ import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import Action from "../UI/Actions.js";
 import { Modal, useModal } from "../UI/Modal.js";
 
-function Subjects({ loggedinUserID }) {
+function Subjects() {
   // Initialisation
   const subjectsEndpoint = `/subjects`;
 

@@ -9,11 +9,9 @@ import FauxLogin from "./components/pages/FauxLogin";
 import Account from "./components/pages/Account";
 import Logout from "./components/pages/Logout";
 import "./App.css";
-import { AuthProvider, useAuth } from "./components/auth/useAuth";
+import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
-import Subjects from "./components/pages/Subject";
-import ViewOnlySubjects from "./components/pages/ViewOnlySubjects";
 
 function App() {
   //const { loggedinUser } = useAuth();
