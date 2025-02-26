@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./GradeCalculator.css";
+import PieChart from "../UI/PieChart"; // Import the PieChart component
 
 const GradeCalculator = () => {
   const [subjects, setSubjects] = useState([]);
+  const [showChart, setShowChart] = useState(false); // State to control chart visibility
 
   useEffect(() => {
     // Simulating fetching subjects from an API
@@ -42,34 +44,49 @@ const GradeCalculator = () => {
   };
 
   return (
-    <div className="grade-calculator-container">
-      <h2 className="title">Grade Calculator</h2>
-      <div className="subjects-container">
-        {subjects.map((subject, index) => (
-          <div key={index} className="subject-input">
-            <input
-              type="text"
-              value={subject.name}
-              onChange={(e) => handleNameChange(index, e.target.value)}
-              className="input name-input"
-              placeholder="Subject Name"
-            />
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={subject.score === null ? "" : subject.score}
-              onChange={(e) => handleScoreChange(index, e.target.value)}
-              className="input score-input"
-              placeholder="Score"
-            />
-          </div>
-        ))}
+    <div>
+      <div className="grade-calculator-container">
+        <h2 className="title">Grade Calculator</h2>
+        <div className="subjects-container">
+          {subjects.map((subject, index) => (
+            <div key={index} className="subject-input">
+              <input
+                type="text"
+                value={subject.name}
+                onChange={(e) => handleNameChange(index, e.target.value)}
+                className="input name-input"
+                placeholder="Subject Name"
+              />
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={subject.score === null ? "" : subject.score}
+                onChange={(e) => handleScoreChange(index, e.target.value)}
+                className="input score-input"
+                placeholder="Score"
+              />
+            </div>
+          ))}
+        </div>
+        <button onClick={addSubject} className="add-button">
+          Add Subject
+        </button>
+        <div className="percentage">Percentage: {calculatePercentage()}</div>
+        <button
+          onClick={() => setShowChart(!showChart)}
+          className="view-chart-button"
+        >
+          {showChart ? "Hide Charts" : "View Charts"}
+        </button>
       </div>
-      <button onClick={addSubject} className="add-button">
-        Add Subject
-      </button>
-      <div className="percentage">Percentage: {calculatePercentage()}</div>
+      {showChart && (
+        <div className="chart-container">
+          <PieChart
+            data={subjects.filter((subject) => subject.score !== null)}
+          />
+        </div>
+      )}
     </div>
   );
 };
