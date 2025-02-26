@@ -44,27 +44,28 @@ const GradeCalculator = () => {
   return (
     <div className="grade-calculator-container">
       <h2 className="title">Grade Calculator</h2>
-      {subjects.map((subject, index) => (
-        <div key={index} className="subject-input">
-          <label className="label">Subject Name:</label>
-          <input
-            type="text"
-            value={subject.name}
-            onChange={(e) => handleNameChange(index, e.target.value)}
-            className="input"
-            placeholder="Enter subject name"
-          />
-          <label className="label">Score:</label>
-          <input
-            type="number"
-            min="0"
-            max="100"
-            value={subject.score === null ? "" : subject.score}
-            onChange={(e) => handleScoreChange(index, e.target.value)}
-            className="input"
-          />
-        </div>
-      ))}
+      <div className="subjects-container">
+        {subjects.map((subject, index) => (
+          <div key={index} className="subject-input">
+            <input
+              type="text"
+              value={subject.name}
+              onChange={(e) => handleNameChange(index, e.target.value)}
+              className="input name-input"
+              placeholder="Subject Name"
+            />
+            <input
+              type="number"
+              min="0"
+              max="100"
+              value={subject.score === null ? "" : subject.score}
+              onChange={(e) => handleScoreChange(index, e.target.value)}
+              className="input score-input"
+              placeholder="Score"
+            />
+          </div>
+        ))}
+      </div>
       <button onClick={addSubject} className="add-button">
         Add Subject
       </button>
