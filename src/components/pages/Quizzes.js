@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useLoad from "../api/useLoad";
 import "./Quizzes.css";
-import Questions from "./Questions";
 
-function Quizzes({ chapter, onBack }) {
-  const quizzesEndpoint = `/quizzes/chapter/${chapter.chapter_id}`;
-  console.log("Fetching quizzes from:", quizzesEndpoint);
+function Quizzes() {
+  // Get chapter from route params and location state
+  const { subjectId, chapterId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [quizzes, loadingMessage, loadQuizzes] = useLoad(quizzesEndpoint);
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  // Get chapter and subject from location state
+  const chapter = location.state?.chapter;
+  const subject = location.state?.subject;
 
-  const handleQuizClick = (quiz) => {
-    setSelectedQuiz(quiz);
+  // Initialisation
+  const quizzesEndpoint = `/quizzes/chapter/${chapterId}`;
+
+  // State
+  const [quizzes, loadingMessage] = useLoad(quizzesEndpoint);
+
+  const handleBackToChapters = () => {
+    navigate(`/subjects/${subjectId}/chapters`, { state: { subject } });
   };
-
-  if (!chapter || !chapter.chapter_id) {
-    console.error("Error: Invalid chapter object", chapter);
-    return <p>Error: No chapter data available</p>;
-  }
-
-  if (selectedQuiz) {
-    return <Questions />;
-  }
 
   return (
     <section>
-      <button onClick={onBack}>Back to Chapters</button>
-      <h2>{chapter.chapterName} - Quizzes</h2>
+      <button onClick={handleBackToChapters}>← Back to Chapters</button>
+      <h2>{chapter ? chapter.chapterName : "Chapter"} - Quizzes</h2>
 
       {!quizzes ? (
         <p>Loading...</p>
@@ -35,14 +34,9 @@ function Quizzes({ chapter, onBack }) {
       ) : (
         <div className="quizzes-container">
           {quizzes.map((quiz) => (
-            <div
-              className="quiz-card"
-              key={quiz.quiz_id}
-              onClick={() => handleQuizClick(quiz)}
-            >
-              <div>Quiz Title: {quiz.quizTitle}</div>
-              <div>Quiz Duration: {quiz.quizDuration}</div>
-              <div>No. of questions: {quiz.quizQuestions}</div>
+            <div className="quiz-card" key={quiz.quiz_id}>
+              <div>Title: {quiz.quizTitle}</div>
+              <div>Description: {quiz.quizDescription}</div>
             </div>
           ))}
         </div>
