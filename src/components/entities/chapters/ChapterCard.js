@@ -5,6 +5,7 @@ const ChapterCard = ({ chapter, onChapterClick }) => {
   // Prepare details for the card
   const details = [
     { label: "Author", value: chapter.chapterAuthor },
+    { label: "Brief", value: chapter.chapterBrief },
     // Add more details as needed
   ];
 

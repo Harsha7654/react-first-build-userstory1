@@ -50,6 +50,7 @@ const QuizCard = ({ quiz, onQuizClick, onModify, onDelete }) => {
   // Prepare details for the card
   const details = [
     { label: "Description", value: quiz.quizBrief },
+    { label: "Level", value: quiz.quizLevel },
     // Add other quiz properties as needed
     ...(quiz.duration
       ? [{ label: "Duration", value: `${quiz.duration} min` }]
