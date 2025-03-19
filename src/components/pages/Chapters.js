@@ -1,38 +1,44 @@
 import { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useLoad from "../api/useLoad";
 import "./Chapters.css";
-import Quizzes from "./Quizzes";
 
-function Chapters({ subject, onBack }) {
+function Chapters() {
+  // Get subject from route params and location state
+  const { subjectId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Get subject from location state or fetch it if not available
+  const subject = location.state?.subject;
+
   // Initialisation
-  const chaptersEndpoint = `/chapters/subject/${subject.subject_id}`;
-  console.log("The undefined variable: ", `${JSON.stringify(subject)}`); // Debugging
-  console.log("Fetching chapters from:", chaptersEndpoint); // Debugging
+  const chaptersEndpoint = `/chapters/subject/${subjectId}`;
 
   // State
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
-  const [selectedChapter, setSelectedChapter] = useState(null);
 
   // Methods
   const handleChapterClick = (chapter) => {
-    setSelectedChapter(chapter);
+    navigate(`/subjects/${subjectId}/chapters/${chapter.chapter_id}/quizzes`, {
+      state: { chapter, subject },
+    });
   };
-  const handleBacktoChapters = () => setSelectedChapter(null);
 
-  // Ensure subject is valid before proceeding
-  if (!subject || !subject.subject_id) {
-    console.error("Error: Invalid subject object", subject);
+  const handleBacktoSubjects = () => {
+    navigate("/subjects");
+  };
+
+  // Ensure subject ID is valid before proceeding
+  if (!subjectId) {
+    console.error("Error: Invalid subject ID");
     return <p>Error: No subject data available.</p>;
-  }
-
-  if (selectedChapter) {
-    return <Quizzes chapter={selectedChapter} onBack={handleBacktoChapters} />;
   }
 
   return (
     <section>
-      <button onClick={onBack}>← Back to Subjects</button>
-      <h2>{subject.name} - Chapters</h2>
+      <button onClick={handleBacktoSubjects}>← Back to Subjects</button>
+      <h2>{subject ? subject.name : "Subject"} - Chapters</h2>
 
       {!chapters ? (
         <p>Loading...</p>
