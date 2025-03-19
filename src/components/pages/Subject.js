@@ -6,11 +6,13 @@ import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters";
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import Action from "../UI/Actions.js";
+import { useNavigate } from "react-router-dom";
 import { Modal, useModal } from "../UI/Modal.js";
 
 function Subjects() {
   // Initialisation
   const subjectsEndpoint = `/subjects`;
+  const navigate = useNavigate();
 
   // State
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
@@ -30,9 +32,16 @@ function Subjects() {
     setModalTitle("Join a subject");
     openModal(<p>{"<JoinSubjectForm/>"}</p>);
   };
-
+  /*
   const handleSubjectClick = (subject) => {
     setSelectedSubject(subject); // Set the clicked subject
+  };
+*/
+  const handleSubjectClick = (subject) => {
+    // Instead of setting state, navigate to the chapters page
+    navigate(`/subjects/${subject.subject_id}/chapters`, {
+      state: { subject },
+    });
   };
 
   const handleBackToSubjects = () => setSelectedSubject(null);

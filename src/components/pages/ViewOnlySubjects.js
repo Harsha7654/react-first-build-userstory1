@@ -2,17 +2,26 @@ import { useState } from "react";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
 import Chapters from "./Chapters";
+import { useNavigate } from "react-router-dom";
 
 function ViewOnlySubjects() {
   // Initialisation
   //const subjectsUserEndpoint = `/userSubjectAssignments/user/${loggedinUserID}`;
   const subjectsUserEndpoint = `/subjects`;
+  const navigate = useNavigate();
   // State
   const [subjects, loadingMessage] = useLoad(subjectsUserEndpoint);
   const [selectedSubject, setSelectedSubject] = useState(null);
-
+  /*
   const handleSubjectClick = (subject) => {
     setSelectedSubject(subject); // Set the clicked subject
+  };
+*/
+  const handleSubjectClick = (subject) => {
+    // Instead of setting state, navigate to the chapters page
+    navigate(`/subjects/${subject.subject_id}/chapters`, {
+      state: { subject },
+    });
   };
 
   const handleBackToSubjects = () => setSelectedSubject(null);
