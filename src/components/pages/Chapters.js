@@ -1,7 +1,8 @@
-import { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useLoad from "../api/useLoad";
 import "./Chapters.css";
+import { CardContainer } from "../UI/Card.js";
+import ChapterCard from "../entities/chapters/ChapterCard.js";
 
 function Chapters() {
   // Get subject from route params and location state
@@ -18,7 +19,6 @@ function Chapters() {
   // State
   const [chapters, loadingMessage, loadChapters] = useLoad(chaptersEndpoint);
 
-  // Methods
   const handleChapterClick = (chapter) => {
     navigate(`/subjects/${subjectId}/chapters/${chapter.chapter_id}/quizzes`, {
       state: { chapter, subject },
@@ -29,11 +29,14 @@ function Chapters() {
     navigate("/subjects");
   };
 
-  // Ensure subject ID is valid before proceeding
-  if (!subjectId) {
-    console.error("Error: Invalid subject ID");
-    return <p>Error: No subject data available.</p>;
-  }
+  // Remove or comment out these handlers since we no longer need them
+  // const handleModify = (chapter) => {
+  //   // Your modify chapter logic
+  // };
+
+  // const handleDelete = (chapterId) => {
+  //   // Your delete chapter logic
+  // };
 
   return (
     <section>
@@ -45,19 +48,18 @@ function Chapters() {
       ) : chapters.length === 0 ? (
         <p>No chapters found</p>
       ) : (
-        <div className="chapters-container">
+        <CardContainer>
           {chapters.map((chapter) => (
-            <div
-              className="chapters-card"
+            <ChapterCard
               key={chapter.chapter_id}
-              onClick={() => handleChapterClick(chapter)}
-            >
-              <p> Welcome {chapter.chapter_id}</p>
-              <div>Title: {chapter.chapterName}</div>
-              <div>Author: {chapter.chapterAuthor}</div>
-            </div>
+              chapter={chapter}
+              onChapterClick={handleChapterClick}
+              // Remove these props to hide the modify and delete buttons
+              // onModify={handleModify}
+              // onDelete={handleDelete}
+            />
           ))}
-        </div>
+        </CardContainer>
       )}
     </section>
   );

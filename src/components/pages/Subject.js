@@ -3,11 +3,12 @@ import SubjectForm from "../entities/subjects/SubjectForm.js";
 import { API } from "../api/API";
 import "./Subject.css";
 import useLoad from "../api/useLoad.js";
-import Chapters from "./Chapters";
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import Action from "../UI/Actions.js";
 import { useNavigate } from "react-router-dom";
 import { Modal, useModal } from "../UI/Modal.js";
+import { CardContainer } from "../UI/Card.js";
+import SubjectCard from "../entities/subjects/SubjectCard.js";
 
 function Subjects() {
   // Initialisation
@@ -16,7 +17,6 @@ function Subjects() {
 
   // State
   const [subjects, loadingMessage, loadSubjects] = useLoad(subjectsEndpoint);
-  const [selectedSubject, setSelectedSubject] = useState(null);
 
   // Modal state
   const [showModal, modalContent, openModal, closeModal] = useModal();
@@ -24,27 +24,22 @@ function Subjects() {
 
   // Methods
   const reloadSubjects = () => loadSubjects(subjectsEndpoint);
+
   const handleAdd = () => {
     setModalTitle("Add new subject");
     openModal(<SubjectForm onCancel={closeModal} onSubmit={handleSubmit} />);
   };
+
   const handleJoin = () => {
     setModalTitle("Join a subject");
     openModal(<p>{"<JoinSubjectForm/>"}</p>);
   };
-  /*
+
   const handleSubjectClick = (subject) => {
-    setSelectedSubject(subject); // Set the clicked subject
-  };
-*/
-  const handleSubjectClick = (subject) => {
-    // Instead of setting state, navigate to the chapters page
     navigate(`/subjects/${subject.subject_id}/chapters`, {
       state: { subject },
     });
   };
-
-  const handleBackToSubjects = () => setSelectedSubject(null);
 
   const handleSubmit = async (subject) => {
     const response = await API.post(subjectsEndpoint, subject);
@@ -112,10 +107,6 @@ function Subjects() {
     );
   };
 
-  if (selectedSubject) {
-    return <Chapters subject={selectedSubject} onBack={handleBackToSubjects} />;
-  }
-
   return (
     <section>
       <h1>Subjects</h1>
@@ -124,46 +115,17 @@ function Subjects() {
       ) : subjects.length === 0 ? (
         <p>No subjects found</p>
       ) : (
-        <div className="subjects-container">
+        <CardContainer>
           {subjects.map((subject) => (
-            <div
-              className="subject-card"
+            <SubjectCard
               key={subject.subject_id}
-              onClick={() => handleSubjectClick(subject)}
-            >
-              <p>Welcome {subject.UserID}</p>
-              <div className="subject-title">{subject.name}</div>
-              <div className="subject-image">
-                Difficulty: {subject.difficulty}
-              </div>
-              <div className="subject-image">Level: {subject.level}</div>
-              <div className="subject-lecturer">{subject.image}</div>
-              <img src={subject.image} alt={subject.name} />
-
-              <ToolTipDecorator message="Modify">
-                <Action.Modify
-                  showText
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    handleModify(subject);
-                  }}
-                  buttonText="Modify"
-                />
-              </ToolTipDecorator>
-
-              <ToolTipDecorator message="Delete">
-                <Action.Delete
-                  showText
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    deleteModal(subject.subject_id);
-                  }}
-                  buttonText="Delete"
-                />
-              </ToolTipDecorator>
-            </div>
+              subject={subject}
+              onSubjectClick={handleSubjectClick}
+              onModify={handleModify}
+              onDelete={deleteModal}
+            />
           ))}
-        </div>
+        </CardContainer>
       )}
 
       <Action.Tray>
