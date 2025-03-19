@@ -1,88 +1,63 @@
-:root {
-  --yellowBee: #ffd375;
-  --yellowBeeHover: #e6be6a; /* darker yellow for hover effect */
-  --yellowBeeActive: #cca95f; /* darker x2 yellow for hover effect */
-  --yellowBeeDarker: #b39455; /* darker x3 yellow for hover effect */
-}
-
-h1 {
-  text-align: center;
-}
-
-p {
-  text-align: center;
-}
-
-h2 {
-  margin-bottom: 1.5rem;
-}
-
-p {
-  margin: 0.5rem 0;
-  color: #555;
-}
-
-div.cardContainer {
-  background: #f9f9f9;
-  min-height: 100vh;
-  border-radius: 10px;
-  padding: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.cardContainer {
+  display: grid;
+  /* Update to create more square-like cards */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
+  margin: 20px 0;
 }
 
-div.cardContainer div.card {
-  width: 300px;
-  padding: 20px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  box-shadow: 4px 4px 8px 4px rgba(70, 70, 70, 0.3);
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
-}
-
-div.cardContainer div.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* enhanced shadow on hover */
-}
-
-div.cardContainer div.card:hover p {
-  color: var(--yellowBeeDarker);
-}
-
-div.cardContainer div.card img {
-  width: 100%;
-  display: block;
-  border-radius: 20px;
-  margin-bottom: 10px;
-}
-
-div.cardContainer div.card .buttonContainer {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-div.cardContainer div.card .buttonContainer .view {
-  padding: 10px 20px;
-  background-color: var(--yellowBee);
-  color: black;
-  border: none;
-  border-radius: 10px;
   cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.2s, transform 0.2s;
-  box-shadow: 4px 4px 8px 4px rgba(70, 70, 70, 0.3);
+  overflow: hidden;
+  position: relative;
+
+  /* Add these properties to make it more box-like */
+  aspect-ratio: 1 / 1; /* This creates a perfect square */
+  display: flex;
+  flex-direction: column;
 }
 
-div.cardContainer div.card .buttonContainer .view:hover {
-  background-color: var(--yellowBeeHover);
-  transform: scale(1.05);
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-div.cardContainer div.card .buttonContainer .view:active {
-  background-color: var(--yellowBeeActive);
-  transform: scale(1);
+/* Make sure content inside the card adjusts properly */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  /* Add to center content vertically if desired */
+  justify-content: center;
+}
+
+/* Update image styling to maintain aspect ratio inside square card */
+.card-image img {
+  width: 100%;
+  height: auto;
+  max-height: 40%; /* Limit image height to allow space for text */
+  object-fit: cover; /* Ensures image covers area without distortion */
+}
+
+/* Make sure title doesn't take too much space */
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Compact the details section */
+.card-details {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Ensure actions are at bottom of card */
+.card-actions {
+  margin-top: auto;
 }

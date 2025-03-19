@@ -1,17 +1,16 @@
 import "./Card.css";
 
 export function CardContainer(props) {
-  // Initialization -------------------------------------------------------
-  // State ------------------------------------------------------------------
-  // Handlers --------------------------------------------------------------
-  // View ------------------------------------------------------------------
   return <div className="cardContainer">{props.children}</div>;
 }
 
 export function Card(props) {
-  // Initialization -------------------------------------------------------
-  // State ------------------------------------------------------------------
-  // Handlers --------------------------------------------------------------
-  // View ------------------------------------------------------------------
-  return <div className="card">{props.children}</div>;
+  // Make sure onClick is properly handled
+  const { children, onClick } = props;
+
+  return (
+    <div className="card" onClick={onClick}>
+      {children}
+    </div>
+  );
 }
