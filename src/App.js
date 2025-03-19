@@ -13,10 +13,9 @@ import { AuthProvider } from "./components/auth/useAuth";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MyDashboard from "./components/pages/MyDashboard";
 import GradeCalculator from "./components/pages/GradeCalculator";
+import Quizzes from "./components/pages/Quizzes";
 
 function App() {
-  //const { loggedinUser } = useAuth();
-
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -57,10 +56,18 @@ function App() {
               }
             />
             <Route
-              path="/chapters"
+              path="/subjects/:subjectId/chapters"
               element={
                 <ProtectedRoute>
                   <Chapters />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/subjects/:subjectId/chapters/:chapterId/quizzes"
+              element={
+                <ProtectedRoute>
+                  <Quizzes />
                 </ProtectedRoute>
               }
             />
